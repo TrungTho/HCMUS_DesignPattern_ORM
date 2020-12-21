@@ -5,3 +5,10 @@ D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
+D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe.config
+D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe
+D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\CorgiORM.pdb
+D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csprojAssemblyReference.cache
+D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
+D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
+D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
