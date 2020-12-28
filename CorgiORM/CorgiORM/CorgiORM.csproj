@@ -42,7 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mapping.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Mapping\AttributeHelper.cs" />
+    <Compile Include="Mapping\DataNamesAttribute.cs" />
+    <Compile Include="Mapping\DataNamesMapper.cs" />
+    <Compile Include="Mapping\Mapper.cs" />
+    <Compile Include="Mapping\PropertyMapHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
