@@ -92,6 +92,8 @@
     <Compile Include="AbstractFactoryDB\FactoryMySQL.cs" />
     <Compile Include="ConfigDB\ConfigDB.cs" />
     <Compile Include="ConfigDB\ConfigMySQL.cs" />
+    <Compile Include="ParserDB\ParserDB.cs" />
+    <Compile Include="ParserDB\ParserMySQL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

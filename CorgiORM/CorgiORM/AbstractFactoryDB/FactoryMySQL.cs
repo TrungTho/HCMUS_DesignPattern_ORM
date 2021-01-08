@@ -12,5 +12,10 @@ namespace CorgiORM
         {
             return new ConfigMySQL(hostname, port, dbName, username, password);
         }
+
+        public ParserDB CreateParser()
+        {
+            return new ParserMySQL();
+        }
     }
 }

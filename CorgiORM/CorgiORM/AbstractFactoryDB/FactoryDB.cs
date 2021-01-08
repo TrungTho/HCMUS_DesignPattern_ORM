@@ -9,5 +9,6 @@ namespace CorgiORM
     interface FactoryDB
     {
         ConfigDB CreateConnection(string hostname, int port, string dbName, string username, string password);
+        ParserDB CreateParser();
     }
 }
