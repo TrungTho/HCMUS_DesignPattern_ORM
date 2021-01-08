@@ -90,12 +90,17 @@
   <ItemGroup>
     <Compile Include="AbstractFactoryDB\FactoryDB.cs" />
     <Compile Include="AbstractFactoryDB\FactoryMySQL.cs" />
+    <Compile Include="ORM.cs" />
+    <Compile Include="TableElement\ColumnAttribute.cs" />
     <Compile Include="ConfigDB\ConfigDB.cs" />
     <Compile Include="ConfigDB\ConfigMySQL.cs" />
+    <Compile Include="TableExample\Employee.cs" />
     <Compile Include="ParserDB\ParserDB.cs" />
     <Compile Include="ParserDB\ParserMySQL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableElement\TableNameAttribute.cs" />
+    <Compile Include="TableExample\Room.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

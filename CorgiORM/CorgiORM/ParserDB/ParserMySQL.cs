@@ -8,7 +8,7 @@ namespace CorgiORM
 {
     class ParserMySQL : ParserDB
     {
-        public override string ParseDeleteQuery(string table, string whereCondition)
+        public override string ParseDeleteQuery(string table, string where)
         {
             throw new NotImplementedException();
         }
@@ -18,12 +18,12 @@ namespace CorgiORM
             throw new NotImplementedException();
         }
 
-        public override string ParseSelectQuery(string table, string projections, string whereCondition, string groupByCondition = "", string havingCondition = "", string orderBy = "")
+        public override string ParseSelectQuery(string table, string projections, string where, string groupBy = "", string having = "", string orderBy = "")
         {
             throw new NotImplementedException();
         }
 
-        public override string ParseUpdateQuery(string table, Dictionary<string, string> setValues, string whereCondtion)
+        public override string ParseUpdateQuery(string table, Dictionary<string, string> setValues, string where)
         {
             throw new NotImplementedException();
         }

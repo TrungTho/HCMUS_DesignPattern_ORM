@@ -16,7 +16,9 @@ namespace CorgiORM
             FactoryDB fatoryMySQL= new FactoryMySQL();
 
             ConfigDB configMySQL = fatoryMySQL.CreateConnection("localhost", 3306, "company", "root", "123456");
-
+            ParserDB parserMySQL = fatoryMySQL.CreateParser();
+            ORM<Employee> orm = new ORM<Employee>(configMySQL, parserMySQL);
+           
             Console.ReadLine();
 
 

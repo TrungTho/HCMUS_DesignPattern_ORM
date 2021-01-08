@@ -10,8 +10,8 @@ namespace CorgiORM
     {
         public abstract string ParseValue(Object obj, Type type);
         public abstract string ParseInsertQuery(string table, Dictionary<string, string> values);
-        public abstract string ParseDeleteQuery(string table, string whereCondition);
-        public abstract string ParseUpdateQuery(string table, Dictionary<string, string> setValues, string whereCondtion);
-        public abstract string ParseSelectQuery(string table, string projections, string whereCondition, string groupByCondition = "", string havingCondition = "", string orderBy = "");
+        public abstract string ParseDeleteQuery(string table, string condition);
+        public abstract string ParseUpdateQuery(string table, Dictionary<string, string> setValues, string condtion);
+        public abstract string ParseSelectQuery(string table, string projections, string condition, string groupBy = "", string having = "", string orderBy = "");
     }
 }
