@@ -13,9 +13,13 @@ namespace CorgiORM
     {
         static void Main(string[] args)
         {
-            //muon ket noi db thi cu copy 2 dong using cuoi qua file can dung
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
+            FactoryDB fatoryMySQL= new FactoryMySQL();
+
+            ConfigDB configMySQL = fatoryMySQL.CreateConnection("localhost", 3306, "school", "root", "123456");
+
+            Console.ReadLine();
+
+
         }
     }
 }
