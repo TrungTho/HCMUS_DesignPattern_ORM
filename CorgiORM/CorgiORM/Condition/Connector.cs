@@ -11,17 +11,17 @@ namespace CorgiORM
         protected List<Condition> conditions;
 
         public abstract string getLogic();
-        public override string toSQL(Dictionary<string, string> attributeList, string tablee)
+        public override string toSQL(Dictionary<string, string> attributeList, string table)
         {
             string opt = getLogic();
             if (conditions.Count == 0)
             {
                 return "";
             }
-            string res = conditions[0].toSQL(attributeList, tablee);
+            string res = conditions[0].toSQL(attributeList, table);
             for (int i = 1; i < conditions.Count; i++)
             {
-                res += " " + opt + " " + conditions[i].toSQL(attributeList, tablee);
+                res += " " + opt + " " + conditions[i].toSQL(attributeList, table);
             }
             res = "(" + res + ")";
             return res;

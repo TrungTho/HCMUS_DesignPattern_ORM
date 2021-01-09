@@ -19,7 +19,12 @@ namespace CorgiORM
             ParserDB parserMySQL = fatoryMySQL.CreateParser();
             ORM<Employee> orm = new ORM<Employee>(configMySQL, parserMySQL);
 
-            List<Object> employeeList = orm.Select().Where(Condition.Equal("idnhanvien",1)).ToList();
+            Employee employee1 = new Employee("test","Male","test@gmail.com","12345","HN",new DateTime(2020,11,12),1);
+            int employee1Insert = orm.Insert(employee1).Execute();
+            Console.WriteLine(employee1);
+            List<Object> employeeList = orm.Select()
+                .Where(Condition.And(Condition.Equal("idnhanvien", 1), Condition.Equal("tennhanvien", "Tan"))).ToList();
+
             Console.WriteLine(employeeList.Count());
             foreach (Object e in employeeList)
             {

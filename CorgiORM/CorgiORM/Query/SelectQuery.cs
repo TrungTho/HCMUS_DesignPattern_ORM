@@ -12,19 +12,20 @@ namespace CorgiORM
         public ConfigDB ConfigDB;
         public ParserDB parser;
         public string table;
+
         public int ASC = 0;
         public int DESC = 1;
-       
-       
+
+        public Dictionary<string, string> attributeList;
         public Dictionary<string, string> projections;
         public Dictionary<string, string> aliasMap;
         protected Dictionary<string, int> orderBy;
-        public Dictionary<string, string> attributeList;
+
         protected OrCondition condition;
+       // protected AndCondition condition;
         public SelectQuery() { }
         public SelectQuery(string table, ConfigDB ConfigDB, ParserDB parser, Dictionary<string, string> attributeList)
         {
-           
             this.table = table;
             this.ConfigDB = ConfigDB;
             this.parser = parser;
@@ -32,7 +33,7 @@ namespace CorgiORM
             this.condition = new OrCondition();
             this.attributeList = attributeList;
             this.orderBy = new Dictionary<string, int>();
-            aliasMap = new Dictionary<string, string>();
+            this.aliasMap = new Dictionary<string, string>();
         }
         public SelectQuery<T> Where(Condition condition)
         {
@@ -40,18 +41,16 @@ namespace CorgiORM
             return this;
         }
 
-        public virtual string GetProjectionStr()
+        public virtual string ConvertAttributesToString()
         {
-            string select = "";
+            string attributesString = "";
             if (projections.Count == 0)
             {
-                // select = "*";
-
                 foreach (string key in attributeList.Keys)
                 {
-                    select += table + "." + attributeList[key] + ",";
+                    attributesString += table + "." + attributeList[key] + ",";
                 }
-                select = select.Substring(0, select.Length - 1);
+                attributesString = attributesString.Substring(0, attributesString.Length - 1);
             }
             else
             {
@@ -60,55 +59,57 @@ namespace CorgiORM
                     int index = projection.IndexOf("(");
                     string p = projection.Substring(0, index + 1);
                     p = p + table + "." + projection.Substring(index + 1);
-                    select += p + " AS " + projections[projection] + ",";
+                    attributesString += p + " AS " + projections[projection] + ",";
                 }
-                select = select.Remove(select.Length - 1, 1);
+                attributesString = attributesString.Remove(attributesString.Length - 1, 1);
             }
-            return select;
+            return attributesString;
         }
-        public virtual string GetConditionStr()
+        public virtual string ConvertConditionToString()
         {
             return condition.toSQL(attributeList, table);
         }
-        public virtual string GetOrderStr()
+        public virtual string ConvertOrderToString()
         {
-            string order = "";
+            string orderString = "";
             if (orderBy.Count != 0)
             {
                 foreach (string attr in orderBy.Keys)
                 {
-                    order += attr;
+                    orderString += attr;
                     if (orderBy[attr] == DESC)
                     {
-                        order += " DESC, ";
+                        orderString += " DESC, ";
                     }
                     else
                     {
-                        order += " ASC, ";
+                        orderString += " ASC, ";
                     }
                 }
-                order = order.Remove(order.Length - 1, 1);
+                orderString = orderString.Remove(orderString.Length - 1, 1);
             }
-            return order;
+            return orderString;
         }
-        public virtual string GetGroupByStr()
+        public virtual string ConvertGroupByToString()
         {
             return "";
         }
-        public virtual string GetHavingStr()
+        public virtual string ConvertHavingToString()
         {
             return "";
         }
 
         public List<Object> ToList()
         {
-            string selectStr = GetProjectionStr();
-            string conditionStr = GetConditionStr();
-            string groupByStr = GetGroupByStr();
-            string orderStr = GetOrderStr();
-            string havingStr = GetHavingStr();
+            string attributeString = ConvertAttributesToString();
+            string conditionString = ConvertConditionToString();
+            string groupByString = ConvertGroupByToString();
+            string orderString = ConvertOrderToString();
+            string havingString = ConvertHavingToString();
 
-            List<List<string>> res = ConfigDB.Select(parser.ParseSelectQuery(table, selectStr, conditionStr, groupByStr, havingStr, orderStr));
+            List<List<string>> res = 
+            ConfigDB.Select(parser.ParseSelectQuery(table, attributeString, conditionString, groupByString, havingString, orderString));
+            
             return ParseResult(res);
         }
 
@@ -134,7 +135,6 @@ namespace CorgiORM
                 if (projections.Count == 0)
                 {
                     obj = new T();
-
                     for (int j = 0; j < values[i].Count; j++)
                     {
                         PropertyInfo propInfo = type.GetProperty(aliasMap[colIndex[j]]);

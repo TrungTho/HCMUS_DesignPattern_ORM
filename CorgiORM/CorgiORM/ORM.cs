@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -59,6 +60,27 @@ namespace CorgiORM
         public SelectQuery<T> Select()
         {
             return new SelectQuery<T>(table, ConfigDB, ParserDB, attributesList);
+        }
+
+        public InsertQuery Insert(T obj)
+        {
+            Dictionary<string, Object> valueMap = new Dictionary<string, Object>();
+            //Iterate through attributes of class
+            foreach (string attr in attributesList.Keys)
+            {
+                Object value = GetValueWithPropName(obj, attr);
+                //Check if attribute is a list or dictionary
+                if (!(value is ICollection) && !(obj is ICollection))
+                {
+                    if (autoIncrementList.Contains(attr))
+                    {
+                        continue;
+                    }
+                    valueMap.Add(attr, value);
+                }
+            }
+          
+            return new InsertQuery(table, ConfigDB, ParserDB, attributesList, valueMap);
         }
 
     }

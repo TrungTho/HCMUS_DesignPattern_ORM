@@ -61,6 +61,20 @@ namespace CorgiORM
             }
         }
 
+        private int ExcecuteQuery(string query)
+        {
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = query;
+            cmd.Connection = connection;
+            int rowCount = cmd.ExecuteNonQuery();
+            return rowCount;
+        }
+
+        public override int Insert(string query)
+        {
+            return ExcecuteQuery(query);
+        }
+
         public ConfigMySQL(string hostname, int port, string dbName, string username, string password)
         {
             try

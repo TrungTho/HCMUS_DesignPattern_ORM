@@ -15,7 +15,19 @@ namespace CorgiORM
 
         public override string ParseInsertQuery(string table, Dictionary<string, string> values)
         {
-            throw new NotImplementedException();
+            string query = "INSERT INTO " + table + "(";
+            foreach (string key in values.Keys.ToArray())
+            {
+                query += key + ",";
+            }
+            query = query.Remove(query.Length - 1, 1) + ")";
+            query += " VALUES (";
+            foreach (string value in values.Values.ToArray())
+            {
+                query += value + ",";
+            }
+            query = query.Remove(query.Length - 1, 1) + ")";
+            return query;
         }
 
         public override string ParseSelectQuery(string table, string projections, string where, string groupBy = "", string having = "", string orderBy = "")

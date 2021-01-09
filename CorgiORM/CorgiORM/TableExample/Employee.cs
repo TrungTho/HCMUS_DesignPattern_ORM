@@ -45,6 +45,17 @@ namespace CorgiORM
             this.ngaysinh = ngaysinh;
             this.idphong = idphong;
         }
+
+        public Employee(string tennhanvien, string gioitinh, string email, string sdt, string diachi, DateTime ngaysinh, int idphong)
+        {
+            this.tennhanvien = tennhanvien;
+            this.gioitinh = gioitinh;
+            this.email = email;
+            this.sdt = sdt;
+            this.diachi = diachi;
+            this.ngaysinh = ngaysinh;
+            this.idphong = idphong;
+        }
         public Employee() { }
     }
 }
