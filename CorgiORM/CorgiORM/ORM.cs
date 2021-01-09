@@ -83,5 +83,30 @@ namespace CorgiORM
             return new InsertQuery(table, ConfigDB, ParserDB, attributesList, valueMap);
         }
 
+        public DeleteQuery Delete(T obj)
+        {
+            AndCondition condition = new AndCondition();
+            foreach (string attr in attributesList.Keys)
+            {
+                Object value = GetValueWithPropName(obj, attr);
+                //Check if attribute is a list or dictionary
+                if (!(value is ICollection) && !(obj is ICollection))
+                {
+                    condition.Add(Condition.Equal(attr, value));
+                }
+            }
+            return new DeleteQuery(table, ConfigDB, ParserDB, attributesList, condition);
+        }
+
+        public DeleteQuery Delete()
+        {
+            return new DeleteQuery(table, ConfigDB, ParserDB, attributesList);
+        }
+
+        public DeleteQuery Delete(Condition condition)
+        {
+            return new DeleteQuery(table, ConfigDB, ParserDB, attributesList, condition);
+        }
+
     }
 }

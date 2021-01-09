@@ -8,9 +8,18 @@ namespace CorgiORM
 {
     class ParserMySQL : ParserDB
     {
-        public override string ParseDeleteQuery(string table, string where)
+        public override string ParseDeleteQuery(string table, string conditionDelete)
         {
-            throw new NotImplementedException();
+            if(conditionDelete!="")
+            {
+                string query = "DELETE FROM " + table + " WHERE " + conditionDelete;
+                return query;
+            }
+            else
+            {
+                string query = "DELETE FROM " + table;
+                return query;
+            }
         }
 
         public override string ParseInsertQuery(string table, Dictionary<string, string> values)

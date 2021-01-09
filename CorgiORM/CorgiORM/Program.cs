@@ -19,9 +19,14 @@ namespace CorgiORM
             ParserDB parserMySQL = fatoryMySQL.CreateParser();
             ORM<Employee> orm = new ORM<Employee>(configMySQL, parserMySQL);
 
-            Employee employee1 = new Employee("test","Male","test@gmail.com","12345","HN",new DateTime(2020,11,12),1);
-            int employee1Insert = orm.Insert(employee1).Execute();
-            Console.WriteLine(employee1);
+            //Employee employee1 = new Employee("test","Male","test@gmail.com","12345","HN",new DateTime(2020,11,12),1);
+            //int employee1Insert = orm.Insert(employee1).Execute();
+            //Console.WriteLine(employee1);
+
+            //int employee1Delete = orm.Delete().Where(Condition.Equal("idnhanvien",1)).Execute();
+            int employee2Delete = orm.Delete().Execute();
+            Console.WriteLine(employee2Delete);
+
             List<Object> employeeList = orm.Select()
                 .Where(Condition.And(Condition.Equal("idnhanvien", 1), Condition.Equal("tennhanvien", "Tan"))).ToList();
 
