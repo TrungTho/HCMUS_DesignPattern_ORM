@@ -90,7 +90,14 @@
   <ItemGroup>
     <Compile Include="AbstractFactoryDB\FactoryDB.cs" />
     <Compile Include="AbstractFactoryDB\FactoryMySQL.cs" />
+    <Compile Include="Condition\LogicalOperator\AndCondition.cs" />
+    <Compile Include="Condition\Compare.cs" />
+    <Compile Include="Condition\Condition.cs" />
+    <Compile Include="Condition\Connector.cs" />
+    <Compile Include="Condition\CompareOperator\EqualCondition.cs" />
+    <Compile Include="Condition\LogicalOperator\OrCondition.cs" />
     <Compile Include="ORM.cs" />
+    <Compile Include="Query\SelectQuery.cs" />
     <Compile Include="TableElement\ColumnAttribute.cs" />
     <Compile Include="ConfigDB\ConfigDB.cs" />
     <Compile Include="ConfigDB\ConfigMySQL.cs" />

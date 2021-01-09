@@ -20,7 +20,25 @@ namespace CorgiORM
 
         public override string ParseSelectQuery(string table, string projections, string where, string groupBy = "", string having = "", string orderBy = "")
         {
-            throw new NotImplementedException();
+            string query = "SELECT " + projections + " FROM " + table;
+            if (where.Length != 0)
+            {
+                query += " WHERE " + where;
+            }
+            if (groupBy.Length != 0)
+            {
+                query += " GROUP BY " + groupBy;
+                if (having.Length != 0)
+                {
+                    query += " HAVING " + having;
+                }
+            }
+            if (orderBy.Length != 0)
+            {
+                query += " ORDER BY " + orderBy;
+            }
+            //Console.WriteLine(query);
+            return query;
         }
 
         public override string ParseUpdateQuery(string table, Dictionary<string, string> setValues, string where)

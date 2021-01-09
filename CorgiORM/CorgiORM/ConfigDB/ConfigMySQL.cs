@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,37 @@ namespace CorgiORM
         {
             String connection = "Server=" + hostname+ ";port=" + port + ";Database=" + dbName + ";User Id=" + username + ";password=" + password;
             return connection;
+        }
+
+        public override List<List<string>> Select(string query)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = query;
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                int numCol = reader.FieldCount;
+                List<List<string>> res = new List<List<string>>();
+                List<string> firstRow = new List<string>();
+                for (int j = 0; j < numCol; j++)
+                {
+                    firstRow.Add(reader.GetName(j).ToLower());
+                }
+                res.Add(firstRow);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        List<string> row = new List<string>();
+                        for (int j = 0; j < numCol; j++)
+                        {
+                            row.Add(reader.GetString(j));
+                        }
+                        res.Add(row);
+                    }
+                }
+                return res;
+            }
         }
 
         public ConfigMySQL(string hostname, int port, string dbName, string username, string password)

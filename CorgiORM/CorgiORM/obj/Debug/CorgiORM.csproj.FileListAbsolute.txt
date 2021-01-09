@@ -128,9 +128,9 @@ E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Buffers.xml
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Memory.xml
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Numerics.Vectors.xml
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csprojAssemblyReference.cache
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe.config
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CopyComplete
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csprojAssemblyReference.cache

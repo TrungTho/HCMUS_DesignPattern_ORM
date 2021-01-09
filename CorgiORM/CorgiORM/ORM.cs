@@ -31,8 +31,8 @@ namespace CorgiORM
             
             foreach(PropertyInfo attribute in attributes)
             {
-                Console.WriteLine(attribute.GetCustomAttribute<Column>().columnName);
-                 Console.WriteLine(attribute.Name);
+                //Console.WriteLine(attribute.GetCustomAttribute<Column>().columnName);
+                // Console.WriteLine(attribute.Name);
                 if (attribute.GetCustomAttribute<Column>() == null)
                 {
                     continue;
@@ -51,6 +51,15 @@ namespace CorgiORM
             }
         }
 
+        Object GetValueWithPropName(Object obj,string propName)
+        {
+            return obj.GetType().GetProperty(propName).GetValue(obj, null);
+        }
+
+        public SelectQuery<T> Select()
+        {
+            return new SelectQuery<T>(table, ConfigDB, ParserDB, attributesList);
+        }
 
     }
 }
