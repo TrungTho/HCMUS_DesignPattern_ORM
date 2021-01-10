@@ -80,6 +80,11 @@ namespace CorgiORM
             return ExcecuteQuery(query);
         }
 
+        public override int Update(string query)
+        {
+            return ExcecuteQuery(query);
+        }
+
         public ConfigMySQL(string hostname, int port, string dbName, string username, string password)
         {
             try

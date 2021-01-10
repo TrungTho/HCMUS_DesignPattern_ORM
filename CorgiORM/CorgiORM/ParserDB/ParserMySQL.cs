@@ -62,9 +62,16 @@ namespace CorgiORM
             return query;
         }
 
-        public override string ParseUpdateQuery(string table, Dictionary<string, string> setValues, string where)
+        public override string ParseUpdateQuery(string table, Dictionary<string, string> newValues, string condition)
         {
-            throw new NotImplementedException();
+            string query = "UPDATE " + table + " SET ";
+            foreach (string key in newValues.Keys.ToArray())
+            {
+                query += key + "=" + newValues[key] + ",";
+            }
+            query = query.Remove(query.Length - 1, 1) + " WHERE " + condition;
+            //Console.WriteLine(query);
+            return query;
         }
 
         public override string ParseValue(object obj, Type type)

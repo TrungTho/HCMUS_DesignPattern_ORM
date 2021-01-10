@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +19,23 @@ namespace CorgiORM
             ParserDB parserMySQL = fatoryMySQL.CreateParser();
             ORM<Employee> orm = new ORM<Employee>(configMySQL, parserMySQL);
 
-            //Employee employee1 = new Employee("test","Male","test@gmail.com","12345","HN",new DateTime(2020,11,12),1);
+            //Employee employee1 = new Employee("test", "Male", "test@gmail.com", "12345", "HN", new DateTime(2020, 11, 12), 1);
             //int employee1Insert = orm.Insert(employee1).Execute();
             //Console.WriteLine(employee1);
 
             //int employee1Delete = orm.Delete().Where(Condition.Equal("idnhanvien",1)).Execute();
-            int employee2Delete = orm.Delete().Execute();
-            Console.WriteLine(employee2Delete);
+            //int employee2Delete = orm.Delete().Execute();
+            //Console.WriteLine(employee2Delete);
 
+            int employee1Update = orm
+                .Update()
+                .Set("diachi", "Việt Nam")
+                .Where(Condition.Equal("sdt", "12345"))
+                .Execute();
+
+            int employee2Update = orm.Update().Execute();
+
+            Console.WriteLine(employee2Update);
             List<Object> employeeList = orm.Select()
                 .Where(Condition.And(Condition.Equal("idnhanvien", 1), Condition.Equal("tennhanvien", "Tan"))).ToList();
 

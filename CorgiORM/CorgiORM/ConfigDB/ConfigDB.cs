@@ -13,5 +13,6 @@ namespace CorgiORM
         public abstract List<List<string>> Select(string query);
         public abstract int Insert(string query);
         public abstract int Delete(string query);
+        public abstract int Update(string query);
     }
 }

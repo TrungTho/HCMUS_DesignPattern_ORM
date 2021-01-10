@@ -89,7 +89,6 @@ namespace CorgiORM
             foreach (string attr in attributesList.Keys)
             {
                 Object value = GetValueWithPropName(obj, attr);
-                //Check if attribute is a list or dictionary
                 if (!(value is ICollection) && !(obj is ICollection))
                 {
                     condition.Add(Condition.Equal(attr, value));
@@ -107,6 +106,27 @@ namespace CorgiORM
         {
             return new DeleteQuery(table, ConfigDB, ParserDB, attributesList, condition);
         }
-
+        public UpdateQuery Update(T obj)
+        {
+            AndCondition condition = new AndCondition();
+            foreach (string key in primaryKeyList)
+            {
+                condition.Add(Condition.Equal(key, GetValueWithPropName(obj, key)));
+            }
+            Dictionary<string, Object> setValues = new Dictionary<string, object>();
+            foreach (string feature in attributesList.Keys)
+            {
+                if (primaryKeyList.Contains(feature))
+                {
+                    continue;
+                }
+                setValues.Add(feature, GetValueWithPropName(obj, feature));
+            }
+            return new UpdateQuery(table, ConfigDB, ParserDB, attributesList, setValues, condition);
+        }
+        public UpdateQuery Update()
+        {
+            return new UpdateQuery(table, ConfigDB, ParserDB, attributesList);
+        }
     }
 }
