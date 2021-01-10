@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data.OleDb;
 using System.Diagnostics;
+using System.Data;
 
 namespace CorgiORM
 {
@@ -26,6 +27,13 @@ namespace CorgiORM
             {
                 return $"{ID} - {Fullname} - {Tel}";
             }
+
+            public Customer(int id, string name, string tel)
+            {
+                this.ID = id;
+                this.Fullname= name;
+                this.Tel = tel;
+            }
         }
 
         static void Main(string[] args)
@@ -39,50 +47,39 @@ namespace CorgiORM
             var connection = new SqlConnection(connectionString);
             try
             {
-                while (true)
+                var tableName = "customer";
+                string queryStr = $"select * from {tableName}";
+
+                var adapter = new SqlDataAdapter(queryStr, connection);
+                var builder = new SqlCommandBuilder(adapter);
+
+                var data = new DataSet();
+
+                adapter.Fill(data, tableName);
+
+                //Console.WriteLine(data.Tables.);
+
+                List<Customer> listCustomer = new List<Customer>();
+
+                for (var i = 0; i < data.Tables[tableName].Rows.Count; i++) 
                 {
-                    connection.Open();
+                    var row = data.Tables[tableName].Rows[i];
 
-                    int count = 0;
+                    //mapping
+                    Customer customer = new Customer(
+                        (int)row[0],
+                        (string)row[1],
+                        (string)row[2]);
 
-
-                    // Buoc 2 - Chuan bi cau truy van
-                    // Lay danh sach cac customer
-                    var sql = "SELECT * FROM Customer where ID=@id";
-
-
-                    // Buoc 3 - Thuc thi cau truy van
-                    var command = new SqlCommand(sql, connection);
-
-                    //parameter
-                    command.Parameters.Add("@id", OleDbType.Integer).Value=1;
-                    //command.Parameters["@id"].Value = 1;
-
-                    var reader = command.ExecuteReader();
-
-                    // Thuc hien anh xa
-                    while (reader.Read())
-                    {
-                        var customer = new Customer();
-                        customer.ID = (int)reader[0];
-                        customer.Fullname = (string)reader[1];
-                        customer.Tel = (string)reader[2];
-                        listOfCustomer.Add(customer);
-                    }
-
-                    foreach (var x in listOfCustomer)
-                        Console.WriteLine(x.ToString());
-                    Console.WriteLine($"--------{count++}----------");
-
-
-                    Debug.WriteLine($"Successful!!");
-
-                    Console.ReadKey();
-
-                    // Buoc 5: Dong ket noi
-                    connection.Close();
-                    Console.ReadKey();
+                    listCustomer.Add(customer);
                 }
+
+                Console.WriteLine("------------------------");
+                foreach (var datum in listCustomer)
+                    Console.WriteLine(datum.ToString());
+
+                Console.ReadKey();
+
             }
             catch (Exception e)
             {
@@ -91,5 +88,9 @@ namespace CorgiORM
             }
         }
 
+        void doSomething<T>(T hehe)
+        {
+            Console.WriteLine(hehe);
+        }
     }
 }
