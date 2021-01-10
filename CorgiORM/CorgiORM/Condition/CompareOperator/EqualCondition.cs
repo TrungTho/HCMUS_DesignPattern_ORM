@@ -8,7 +8,7 @@ namespace CorgiORM
 {
     class Equal : Compare
     {
-        public Equal(string a, Object b, string aggFunc = "") : base(a, b, aggFunc)
+        public Equal(string a, Object b, string aggregateType = "") : base(a, b, aggregateType)
         {
 
         }

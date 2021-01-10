@@ -8,11 +8,11 @@ namespace CorgiORM
 {
     class AndCondition : Connector
     {
-        public AndCondition(Condition left, Condition right)
+        public AndCondition(Condition a, Condition b)
         {
             conditions = new List<Condition>();
-            conditions.Add(left);
-            conditions.Add(right);
+            conditions.Add(a);
+            conditions.Add(b);
         }
         public AndCondition()
         {
@@ -22,7 +22,7 @@ namespace CorgiORM
         {
             this.conditions = conditions;
         }
-        public override string getLogic()
+        public override string getLogicalOperator()
         {
             return "AND";
         }

@@ -8,9 +8,9 @@ namespace CorgiORM
 {
     class FactoryMySQL : FactoryDB
     {
-        public ConfigDB CreateConnection(string hostname, int port, string dbName, string username, string password)
+        public ConfigDB CreateConnection(string hostname, int port, string database, string username, string password)
         {
-            return new ConfigMySQL(hostname, port, dbName, username, password);
+            return new ConfigMySQL(hostname, port, database, username, password);
         }
 
         public ParserDB CreateParser()

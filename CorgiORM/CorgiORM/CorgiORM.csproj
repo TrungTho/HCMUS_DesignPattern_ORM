@@ -88,8 +88,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractFactoryDB\FactoryDB.cs" />
-    <Compile Include="AbstractFactoryDB\FactoryMySQL.cs" />
+    <Compile Include="FactoryDB\FactoryDB.cs" />
+    <Compile Include="FactoryDB\FactoryMySQL.cs" />
     <Compile Include="Condition\CompareOperator\GreaterThanCondition.cs" />
     <Compile Include="Condition\CompareOperator\GreaterThanOrEqualCondition.cs" />
     <Compile Include="Condition\CompareOperator\LessThanCondition.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="Condition\Connector.cs" />
     <Compile Include="Condition\CompareOperator\EqualCondition.cs" />
     <Compile Include="Condition\LogicalOperator\OrCondition.cs" />
-    <Compile Include="ORM.cs" />
+    <Compile Include="ORM\ORM.cs" />
     <Compile Include="Query\AggregateQuery.cs" />
     <Compile Include="Query\DeleteQuery.cs" />
     <Compile Include="Query\ExecuteQuery.cs" />

@@ -18,8 +18,8 @@ namespace CorgiORM
             ConfigDB configMySQL = fatoryMySQL.CreateConnection("localhost", 3306, "company", "root", "123456");
             ParserDB parserMySQL = fatoryMySQL.CreateParser();
             ORM<Employee> orm = new ORM<Employee>(configMySQL, parserMySQL);
-
-            //Employee employee1 = new Employee("test", "Male", "test@gmail.com", "12345", "HN", new DateTime(2020, 11, 12), 2);
+           // int num2 = orm.Update().Set("diachi", "VietNam").Execute();
+            //Employee employee1 = new Employee("test", "Male", "test@gmail.com", "12345", "HN", new DateTime(2020, 11, 12), 1);
             //int employee1Insert = orm.Insert(employee1).Execute();
             //Console.WriteLine(employee1);
 
@@ -36,27 +36,30 @@ namespace CorgiORM
             //int employee2Update = orm.Update().Execute();
             //Console.WriteLine(employee2Update);
             //Console.WriteLine(employeeList.Count());
-            //foreach (Object e in employeeList)
-            //{
-            //    Employee employee = e as Employee;
 
-            //    Console.WriteLine("Name: " + employee.tennhanvien);
-            //    Console.WriteLine("---------------------");
-            //}
-            List<Object> res = orm
-                .Select()
-                .Where(Condition.GreaterThan("idphong",1))
-                .AddColumnsReturn("tennhanvien","ten")
-                .GroupBy("idphong")
-                .AddProjection("tennhanvien", Aggregate.COUNT, "dem")
-                .ToList();
-            foreach (Object r in res)
+            List<Object> employeeList = orm.Select().Where(Condition.Equal("idphong",1)).ConvertResultToList();
+
+            foreach (Object e in employeeList)
             {
-                Dictionary<string, Object> dict = r as Dictionary<string, Object>;
-                Console.WriteLine("Name: " + dict["ten"]);
-                Console.WriteLine("Number of students in class: " + dict["dem"]);
-                Console.WriteLine("--------------------");
+                Employee employee = e as Employee;
+
+                Console.WriteLine("Name: " + employee.tennhanvien);
+                Console.WriteLine("---------------------");
             }
+            //List<Object> res = orm
+            //    .Select()
+            //    .Where(Condition.GreaterThan("idphong",1))
+            //    .AddColumnsReturn("tennhanvien","ten")
+            //    .GroupBy("idphong")
+            //    .AddProjection("tennhanvien", AggregateKey.COUNT, "dem")
+            //    .ToList();
+            //foreach (Object r in res)
+            //{
+            //    Dictionary<string, Object> dict = r as Dictionary<string, Object>;
+            //    Console.WriteLine("Name: " + dict["ten"]);
+            //    Console.WriteLine("Number of students in class: " + dict["dem"]);
+            //    Console.WriteLine("--------------------");
+            //}
 
             Console.ReadLine();
 

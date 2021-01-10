@@ -8,40 +8,41 @@ namespace CorgiORM
 {
     abstract class Compare : Condition
     {
-        protected string param { get; set; }
+        protected string column { get; set; }
         protected Object value { get; set; }
-        protected string aggFunc { get; set; }
+        protected string aggregate { get; set; }
         public abstract string getCompareOperator();
-        public Compare(string param, Object value, string aggFunc)
+        public Compare(string column, Object value, string aggregateType)
         {
-            this.param = param;
+            this.column = column;
             this.value = value;
-            this.aggFunc = aggFunc;
+            this.aggregate = aggregateType;
         }
-        public string parseValue(Object obj)
+        public string parseValue(Object data)
         {
-            Type type = obj.GetType();
-            if (type == typeof(string))
-                return "\"" + obj.ToString() + "\"";
-            else if (type == typeof(DateTime))
+            if (data.GetType() == typeof(string))
             {
-                return "\"" + ((DateTime)obj).ToString("yyyy-MM-dd HH:mm:ss") + "\"";
+                return "\"" + data.ToString() + "\"";
             }
-            return obj.ToString();
+            else if (data.GetType() == typeof(DateTime))
+            {
+                return "\"" + ((DateTime)data).ToString("yyyy-MM-dd HH:mm:ss") + "\"";
+            }
+            return data.ToString();
         }
-        public override string toSQL(Dictionary<string, string> featureMap, string tableName)
+        public override string parseDataToString(Dictionary<string, string> attributeList, string table)
         {
-            if (featureMap.ContainsKey(param) == false)
+            if (!attributeList.ContainsKey(column))
             {
-                throw new Exception("There is no \"" + param + "\" attribute in class");
+                throw new Exception("No \"" + column + "\" attribute");
             }
-            string attr = featureMap[param];
-            attr = tableName + "." + attr;
-            if (aggFunc.Length != 0)
+            string attribute = attributeList[column];
+            attribute = table + "." + attribute;
+            if (aggregate.Length != 0)
             {
-                attr = aggFunc + "(" + attr + ")";
+                attribute = aggregate + "(" + attribute + ")";
             }
-            return attr + getCompareOperator() + parseValue(value);
+            return attribute + getCompareOperator() + parseValue(value);
         }
     }
 }

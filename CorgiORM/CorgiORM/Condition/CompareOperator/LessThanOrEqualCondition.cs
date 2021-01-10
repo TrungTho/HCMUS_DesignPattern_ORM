@@ -8,7 +8,7 @@ namespace CorgiORM
 {
     class LessThanOrEqualCondition : Compare
     {
-        public LessThanOrEqualCondition(string a, Object b, string aggFunc = "") : base(a, b, aggFunc)
+        public LessThanOrEqualCondition(string a, Object b, string aggregateType = "") : base(a, b, aggregateType)
         {
 
         }

@@ -13,9 +13,9 @@ namespace CorgiORM
         {
             this.condition = condition;
         }
-        public override string toSQL(Dictionary<string, string> attributeList, string table)
+        public override string parseDataToString(Dictionary<string, string> attributeList, string table)
         {
-            return "(NOT " + condition.toSQL(attributeList, table) + ")";
+            return "(NOT " + condition.parseDataToString(attributeList, table) + ")";
         }
     }
 }

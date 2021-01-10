@@ -8,81 +8,89 @@ namespace CorgiORM
 {
     class ParserMySQL : ParserDB
     {
-        public override string ParseDeleteQuery(string table, string conditionDelete)
+        public override string ParseDataToTableValue(object obj, Type dataType)
         {
-            if(conditionDelete!="")
+            if (dataType == typeof(string))
             {
-                string query = "DELETE FROM " + table + " WHERE " + conditionDelete;
-                return query;
-            }
-            else
-            {
-                string query = "DELETE FROM " + table;
-                return query;
-            }
-        }
-
-        public override string ParseInsertQuery(string table, Dictionary<string, string> values)
-        {
-            string query = "INSERT INTO " + table + "(";
-            foreach (string key in values.Keys.ToArray())
-            {
-                query += key + ",";
-            }
-            query = query.Remove(query.Length - 1, 1) + ")";
-            query += " VALUES (";
-            foreach (string value in values.Values.ToArray())
-            {
-                query += value + ",";
-            }
-            query = query.Remove(query.Length - 1, 1) + ")";
-            return query;
-        }
-
-        public override string ParseSelectQuery(string table, string projections, string where, string groupBy = "", string having = "", string orderBy = "")
-        {
-            string query = "SELECT " + projections + " FROM " + table;
-            if (where.Length != 0)
-            {
-                query += " WHERE " + where;
-            }
-            if (groupBy.Length != 0)
-            {
-                query += " GROUP BY " + groupBy;
-                if (having.Length != 0)
-                {
-                    query += " HAVING " + having;
-                }
-            }
-            if (orderBy.Length != 0)
-            {
-                query += " ORDER BY " + orderBy;
-            }
-            //Console.WriteLine(query);
-            return query;
-        }
-
-        public override string ParseUpdateQuery(string table, Dictionary<string, string> newValues, string condition)
-        {
-            string query = "UPDATE " + table + " SET ";
-            foreach (string key in newValues.Keys.ToArray())
-            {
-                query += key + "=" + newValues[key] + ",";
-            }
-            query = query.Remove(query.Length - 1, 1) + " WHERE " + condition;
-            //Console.WriteLine(query);
-            return query;
-        }
-
-        public override string ParseValue(object obj, Type type)
-        {
-            if (type == typeof(string))
                 return "\"" + obj.ToString() + "\"";
-            else if (type == typeof(DateTime))
+            }
+            else if (dataType == typeof(DateTime))
             {
-                return "\"" + ((DateTime)obj).ToString("yyyy-MM-dd HH:mm:ss") + "\"";
+                return "\"" + ((DateTime)obj).ToString("yyyy-MM-dd") + "\"";
             }
             return obj.ToString();
         }
+        public override string ParseDataToInsertQuery(string table, Dictionary<string, string> dataInsert)
+        {
+            string insertQuery = "INSERT INTO " + table + "(";
+            foreach (string key in dataInsert.Keys.ToArray())
+            {
+                insertQuery += key + ",";
+            }
+            //get attribute insert
+            insertQuery = insertQuery.Remove(insertQuery.Length - 1, 1) + ")";
+            insertQuery += " VALUES (";
+
+            //get value insert
+            foreach (string value in dataInsert.Values.ToArray())
+            {
+                insertQuery += value + ",";
+            }
+            insertQuery = insertQuery.Remove(insertQuery.Length - 1, 1) + ")";
+
+            return insertQuery;
+        }
+        public override string ParseDataToDeleteQuery(string table, string condition)
+        {
+            string deleteQuery = "DELETE FROM " + table;
+            if (condition != "")
+            {
+                deleteQuery += " WHERE " + condition;
+            }
+            return deleteQuery;
+        }
+
+        public override string ParseDataToSelectQuery(string table, string columnsReturn, string condition, string groupBy = "", string having = "", string orderBy = "")
+        {
+            string selectQuery = "SELECT " + columnsReturn + " FROM " + table;
+
+            if (condition.Length != 0)
+            {
+                selectQuery += " WHERE " + condition;
+            }
+
+            if (groupBy.Length != 0)
+            {
+                selectQuery += " GROUP BY " + groupBy;
+                if (having.Length != 0)
+                {
+                    selectQuery += " HAVING " + having;
+                }
+            }
+
+            if (orderBy.Length != 0)
+            {
+                selectQuery += " ORDER BY " + orderBy;
+            }
+            return selectQuery;
+        }
+
+        public override string ParseDataToUpdateQuery(string table, Dictionary<string, string> newValues, string condition)
+        {
+            string updateQuery = "UPDATE " + table + " SET ";
+            foreach (string key in newValues.Keys.ToArray())
+            {
+                updateQuery += key + "=" + newValues[key] + ",";
+            }
+            updateQuery = updateQuery.Remove(updateQuery.Length - 1, 1);
+
+            if(condition!="")
+            {
+                updateQuery+= " WHERE " + condition;
+            }
+          
+            return updateQuery;
+        }
+
     }
 }

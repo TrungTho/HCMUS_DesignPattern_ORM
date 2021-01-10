@@ -10,20 +10,21 @@ namespace CorgiORM
     {
         protected List<Condition> conditions;
 
-        public abstract string getLogic();
-        public override string toSQL(Dictionary<string, string> attributeList, string table)
+        public abstract string getLogicalOperator();
+        public override string parseDataToString(Dictionary<string, string> attributeList, string table)
         {
-            string opt = getLogic();
+            string logicalOperator = getLogicalOperator();
             if (conditions.Count == 0)
             {
                 return "";
             }
-            string res = conditions[0].toSQL(attributeList, table);
+            string res = conditions[0].parseDataToString(attributeList, table);
             for (int i = 1; i < conditions.Count; i++)
             {
-                res += " " + opt + " " + conditions[i].toSQL(attributeList, table);
+                res += " " + logicalOperator + " " + conditions[i].parseDataToString(attributeList, table);
             }
             res = "(" + res + ")";
+
             return res;
         }
         public Condition Add(Condition condition)

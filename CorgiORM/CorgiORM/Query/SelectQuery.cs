@@ -22,7 +22,6 @@ namespace CorgiORM
         protected Dictionary<string, int> orderBy;
 
         protected OrCondition condition;
-       // protected AndCondition condition;
         public SelectQuery() { }
         public SelectQuery(string table, ConfigDB ConfigDB, ParserDB parser, Dictionary<string, string> attributeList)
         {
@@ -40,7 +39,22 @@ namespace CorgiORM
             this.condition.Add(condition);
             return this;
         }
-
+        public GroupByQuery<T> GroupBy(string attr)
+        {
+            return new GroupByQuery<T>(this).GroupBy(attr);
+        }
+        public SelectQuery<T> OrderBy(string attr, string order = "ASC")
+        {
+            if (order.Equals("ASC"))
+            {
+                this.orderBy.Add(attributeList[attr], ASC);
+            }
+            else
+            {
+                this.orderBy.Add(attributeList[attr], DESC);
+            }
+            return this;
+        }
         public virtual string ConvertAttributesToString()
         {
             string attributesString = "";
@@ -67,7 +81,7 @@ namespace CorgiORM
         }
         public virtual string ConvertConditionToString()
         {
-            return condition.toSQL(attributeList, table);
+            return condition.parseDataToString(attributeList, table);
         }
         public virtual string ConvertOrderToString()
         {
@@ -90,16 +104,8 @@ namespace CorgiORM
             }
             return orderString;
         }
-        public virtual string ConvertGroupByToString()
-        {
-            return "";
-        }
-        public virtual string ConvertHavingToString()
-        {
-            return "";
-        }
-
-        public List<Object> ToList()
+       
+        public List<Object> ConvertResultToList()
         {
             string attributeString = ConvertAttributesToString();
             string conditionString = ConvertConditionToString();
@@ -107,14 +113,15 @@ namespace CorgiORM
             string orderString = ConvertOrderToString();
             string havingString = ConvertHavingToString();
 
-            List<List<string>> res = 
-            ConfigDB.Select(parser.ParseSelectQuery(table, attributeString, conditionString, groupByString, havingString, orderString));
+            List<List<string>> selectResult = ConfigDB.Select(parser.ParseDataToSelectQuery(table, attributeString, conditionString, groupByString, havingString, orderString));
             
-            return ParseResult(res);
+            return ParseResultToList(selectResult);
         }
 
-        public virtual List<Object> ParseResult(List<List<string>> values)
+        public virtual List<Object> ParseResultToList(List<List<string>> data)
         {
+            List<Object> result = new List<Object>();
+            Type type = typeof(T);
             if (columnsReturn.Count == 0)
             {
                 foreach (string key in attributeList.Keys)
@@ -122,54 +129,43 @@ namespace CorgiORM
                     aliasColumnsReturn.Add(attributeList[key], key);
                 }
             }
-            List<Object> res = new List<Object>();
-            Dictionary<int, string> colIndex = new Dictionary<int, string>();
-            Type type = typeof(T);
-            for (int i = 0; i < values[0].Count; i++)
+           
+            Dictionary<int, string> columnsList = new Dictionary<int, string>();
+            
+            for (int i = 0; i < data[0].Count; i++)
             {
-                colIndex.Add(i, values[0][i]);
+                columnsList.Add(i, data[0][i]);
             }
-            for (int i = 1; i < values.Count; i++)
+
+            for (int i = 1; i < data.Count; i++)
             {
-                Object obj = new object();
+                Object element = new object();
                 if (columnsReturn.Count == 0)
                 {
-                    obj = new T();
-                    for (int j = 0; j < values[i].Count; j++)
+                    element = new T();
+                    for (int j = 0; j < data[i].Count; j++)
                     {
-                        PropertyInfo propInfo = type.GetProperty(aliasColumnsReturn[colIndex[j]]);
-                        Object convertObj = Convert.ChangeType(values[i][j], propInfo.PropertyType);
-                        propInfo.SetValue(obj, convertObj);
+                        PropertyInfo propInfo = type.GetProperty(aliasColumnsReturn[columnsList[j]]);
+                        Object convertObj = Convert.ChangeType(data[i][j], propInfo.PropertyType);
+                        propInfo.SetValue(element, convertObj);
                     }
                 }
                 else
                 {
-                    obj = new Dictionary<string, Object>();
-                    for (int j = 0; j < values[i].Count; j++)
+                    element = new Dictionary<string, Object>();
+                    for (int j = 0; j < data[i].Count; j++)
                     {
-                        string propName = aliasColumnsReturn[colIndex[j]];
+                        string propName = aliasColumnsReturn[columnsList[j]];
                         PropertyInfo propInfo = type.GetProperty(propName);
-                        Object convertObj = Convert.ChangeType(values[i][j], propInfo.PropertyType);
-                        ((Dictionary<string, Object>)obj).Add(colIndex[j], convertObj);
+                        Object convertObj = Convert.ChangeType(data[i][j], propInfo.PropertyType);
+                        ((Dictionary<string, Object>)element).Add(columnsList[j], convertObj);
                     }
                 }
-                res.Add(obj);
+                result.Add(element);
             }
-            return res;
+            return result;
         }
 
-        public SelectQuery<T> OrderBy(string attr, string order = "ASC")
-        {
-            if (order.Equals("DECS"))
-            {
-                this.orderBy.Add(attributeList[attr], DESC);
-            }
-            else
-            {
-                this.orderBy.Add(attributeList[attr], ASC);
-            }
-            return this;
-        }
         public SelectQuery<T> AddColumnsReturn(string attr, string alias = "")
         {
             if (alias.Length == 0)
@@ -181,10 +177,14 @@ namespace CorgiORM
             this.aliasColumnsReturn.Add(alias, attr);
             return this;
         }
-        public GroupByQuery<T> GroupBy(string attr)
-        {
-            return new GroupByQuery<T>(this).GroupBy(attr);
-        }
 
+        public virtual string ConvertGroupByToString()
+        {
+            return "";
+        }
+        public virtual string ConvertHavingToString()
+        {
+            return "";
+        }
     }
 }

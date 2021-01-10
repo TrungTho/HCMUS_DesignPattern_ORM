@@ -11,9 +11,21 @@ namespace CorgiORM
     class ConfigMySQL : ConfigDB
     {
         private MySqlConnection connection;
-        public override void ConnectDB(string hostname, int port, string dbName, string username, string password)
+        public ConfigMySQL(string hostname, int port, string database, string username, string password)
         {
-            String connectionString = GetStrConnectionMySQL(hostname,port,dbName,username,password);
+            try
+            {
+                ConnectDB(hostname, port, database, username, password);
+                Console.WriteLine("Connect Successfully");
+            }
+            catch
+            {
+                Console.WriteLine("Connect Failed");
+            }
+        }
+        public override void ConnectDB(string hostname, int port, string database, string username, string password)
+        {
+            String connectionString = GetConnectionStringMySQL(hostname,port,database,username,password);
             Console.WriteLine(connectionString);
             connection = new MySqlConnection(connectionString);
             connection.Open();
@@ -24,50 +36,52 @@ namespace CorgiORM
             connection.Close();
         }
 
-        public String GetStrConnectionMySQL(string hostname, int port, string dbName, string username, string password)
+        public String GetConnectionStringMySQL(string hostname, int port, string database, string username, string password)
         {
-            String connection = "Server=" + hostname+ ";port=" + port + ";Database=" + dbName + ";User Id=" + username + ";password=" + password;
+            String connection = "Server=" + hostname+ ";port=" + port + ";Database=" + database + ";User Id=" + username + ";password=" + password;
             return connection;
+        }
+        private int ExcecuteQuery(string query)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = query;
+            command.Connection = connection;
+            int effectRow = command.ExecuteNonQuery();
+            return effectRow;
         }
 
         public override List<List<string>> Select(string query)
         {
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = connection;
-            cmd.CommandText = query;
-            using (DbDataReader reader = cmd.ExecuteReader())
+            MySqlCommand command = new MySqlCommand();
+            command.Connection = connection;
+            command.CommandText = query;
+            using (DbDataReader dataReader = command.ExecuteReader())
             {
-                int numCol = reader.FieldCount;
-                List<List<string>> res = new List<List<string>>();
+                List<List<string>> result = new List<List<string>>();
+
                 List<string> firstRow = new List<string>();
-                for (int j = 0; j < numCol; j++)
+
+                for (int i = 0; i < dataReader.FieldCount; i++)
                 {
-                    firstRow.Add(reader.GetName(j).ToLower());
+                    firstRow.Add(dataReader.GetName(i).ToLower());
                 }
-                res.Add(firstRow);
-                if (reader.HasRows)
+
+                result.Add(firstRow);
+
+                if (dataReader.HasRows)
                 {
-                    while (reader.Read())
+                    while (dataReader.Read())
                     {
                         List<string> row = new List<string>();
-                        for (int j = 0; j < numCol; j++)
+                        for (int i = 0; i < dataReader.FieldCount; i++)
                         {
-                            row.Add(reader.GetString(j));
+                            row.Add(dataReader.GetString(i));
                         }
-                        res.Add(row);
+                        result.Add(row);
                     }
                 }
-                return res;
+                return result;
             }
-        }
-
-        private int ExcecuteQuery(string query)
-        {
-            MySqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = query;
-            cmd.Connection = connection;
-            int rowCount = cmd.ExecuteNonQuery();
-            return rowCount;
         }
 
         public override int Insert(string query)
@@ -83,19 +97,6 @@ namespace CorgiORM
         public override int Update(string query)
         {
             return ExcecuteQuery(query);
-        }
-
-        public ConfigMySQL(string hostname, int port, string dbName, string username, string password)
-        {
-            try
-            {
-                ConnectDB(hostname, port, dbName, username, password);
-                Console.WriteLine("Connect Successfully");
-            }
-            catch
-            {
-                Console.WriteLine("Connect Failed");
-            }
         }
     }
 }

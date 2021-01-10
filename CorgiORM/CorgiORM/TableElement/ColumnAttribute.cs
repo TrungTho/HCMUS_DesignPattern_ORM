@@ -5,14 +5,14 @@ namespace CorgiORM
     [AttributeUsage(AttributeTargets.All)]
     class Column : FlagsAttribute
     {
-        public string columnName { get; set; }
-        public bool isKey { get; set; }
-        public bool autoincrement { get; set; }
-        public Column(string column, bool isKey = false, bool autoincrement = false)
+        public string column { get; set; }
+        public bool primaryKey { get; set; }
+        public bool autoIncrement { get; set; }
+        public Column(string column, bool primaryKey = false, bool autoIncrement = false)
         {
-            this.columnName = column;
-            this.isKey = isKey;
-            this.autoincrement = autoincrement;
+            this.column = column;
+            this.primaryKey = primaryKey;
+            this.autoIncrement = autoIncrement;
         }
     }
 }

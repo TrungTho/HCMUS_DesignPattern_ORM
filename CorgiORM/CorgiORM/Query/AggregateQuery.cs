@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CorgiORM
 {
-    class Aggregate
+    class AggregateKey
     {
-        public static string COUNT = "COUNT";
-        public static string SUM = "SUM";
         public static string MAX = "MAX";
         public static string MIN = "MIN";
+        public static string COUNT = "COUNT";
+        public static string SUM = "SUM"; 
     }
 }

@@ -9,7 +9,7 @@ namespace CorgiORM.TableExample
     [TableName("room")]
     class Room
     {
-        [Column("idphong", isKey: true, autoincrement: true)]
+        [Column("idphong", primaryKey : true, autoIncrement: true)]
         public int id { get; set; }
 
         [Column("tenphong")]

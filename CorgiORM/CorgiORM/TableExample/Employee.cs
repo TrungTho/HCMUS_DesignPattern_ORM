@@ -10,7 +10,7 @@ namespace CorgiORM
     class Employee
     {
 
-        [Column("id", isKey: true, autoincrement: true)]
+        [Column("id", primaryKey : true, autoIncrement: true)]
         public int idnhanvien { get; set; }
 
         [Column("name")]

@@ -8,11 +8,11 @@ namespace CorgiORM
 {
     class OrCondition : Connector
     {
-        public OrCondition(Condition left, Condition right)
+        public OrCondition(Condition a, Condition b)
         {
             conditions = new List<Condition>();
-            conditions.Add(left);
-            conditions.Add(right);
+            conditions.Add(a);
+            conditions.Add(b);
         }
         public OrCondition()
         {
@@ -22,7 +22,7 @@ namespace CorgiORM
         {
             this.conditions = conditions;
         }
-        public override string getLogic()
+        public override string getLogicalOperator()
         {
             return "OR";
         }

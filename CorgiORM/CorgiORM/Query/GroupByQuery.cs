@@ -59,16 +59,16 @@ namespace CorgiORM
             return groupByStr;
         }
 
-        public GroupByQuery<T> AddProjection(string attr, string aggFunc = "", string alias = "")
+        public GroupByQuery<T> AddProjection(string attr, string aggregate = "", string alias = "")
         {
-            if (aggFunc.Length != 0 && alias.Length == 0)
+            if (aggregate.Length != 0 && alias.Length == 0)
             {
-                throw new Exception("Alias for Aggegate function is not specified");
+                throw new Exception("Alias is not specified");
             }
             string aggAttr = this.wrapeeQuery.attributeList[attr];
-            if (aggFunc.Length != 0)
+            if (aggregate.Length != 0)
             {
-                aggAttr = aggFunc + "(" + aggAttr + ")";
+                aggAttr = aggregate + "(" + aggAttr + ")";
             }
             if (alias.Length == 0)
             {
@@ -94,7 +94,7 @@ namespace CorgiORM
             this.havingCondition.Add(condition);
             return this;
         }
-        public override List<object> ParseResult(List<List<string>> values)
+        public override List<object> ParseResultToList(List<List<string>> values)
         {
             if (this.wrapeeQuery.columnsReturn.Count == 0)
             {

@@ -8,10 +8,10 @@ namespace CorgiORM
 {
     abstract class ParserDB
     {
-        public abstract string ParseValue(Object obj, Type type);
-        public abstract string ParseInsertQuery(string table, Dictionary<string, string> values);
-        public abstract string ParseDeleteQuery(string table, string condition);
-        public abstract string ParseUpdateQuery(string table, Dictionary<string, string> setValues, string condtion);
-        public abstract string ParseSelectQuery(string table, string projections, string condition, string groupBy = "", string having = "", string orderBy = "");
+        public abstract string ParseDataToTableValue(Object obj, Type type);
+        public abstract string ParseDataToInsertQuery(string table, Dictionary<string, string> values);
+        public abstract string ParseDataToDeleteQuery(string table, string condition);
+        public abstract string ParseDataToUpdateQuery(string table, Dictionary<string, string> valuesUpdate, string condition);
+        public abstract string ParseDataToSelectQuery(string table, string projections, string condition, string groupBy = "", string having = "", string orderBy = "");
     }
 }

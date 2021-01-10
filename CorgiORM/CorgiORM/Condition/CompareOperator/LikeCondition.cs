@@ -8,7 +8,7 @@ namespace CorgiORM
 {
     class Like : Compare
     {
-        public Like(string a, Object b, string aggFunc = "") : base(a, b, aggFunc)
+        public Like(string a, Object b, string aggregateType = "") : base(a, b, aggregateType)
         {
 
         }

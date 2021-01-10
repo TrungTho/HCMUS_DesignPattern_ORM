@@ -8,24 +8,23 @@ namespace CorgiORM
 {
     class InsertQuery : ExecuteQuery
     {
-        private Dictionary<string, Object> values;
-        public InsertQuery(string tableName, ConfigDB configDB, ParserDB parserDB, 
-        Dictionary<string, string> attributeList, Dictionary<string, Object> values) 
-        : base(tableName, configDB, parserDB, attributeList)
+        private Dictionary<string, Object> valuesInsert;
+        public InsertQuery(string table, ConfigDB configDB, ParserDB parserDB, 
+        Dictionary<string, string> attributeList, Dictionary<string, Object> values) : base(table, configDB, parserDB, attributeList)
         {
-            this.values = values;
+            this.valuesInsert = values;
         }
 
         public override int Execute()
         {
             Dictionary<string, string> valuesMap = new Dictionary<string, string>();
-            foreach (KeyValuePair<string, Object> keyValuePair in values)
+            foreach (KeyValuePair<string, Object> data in valuesInsert)
             {
-                string parsed = parserDB.ParseValue(keyValuePair.Value, keyValuePair.Value.GetType());
-                valuesMap.Add(this.attributeList[keyValuePair.Key], parsed);
+                string value = parserDB.ParseDataToTableValue(data.Value, data.Value.GetType());
+                valuesMap.Add(this.attributeList[data.Key], value);
             }
 
-            return configDB.Insert(this.parserDB.ParseInsertQuery(this.table, valuesMap));
+            return configDB.Insert(this.parserDB.ParseDataToInsertQuery(this.table, valuesMap));
         }
     }
 }

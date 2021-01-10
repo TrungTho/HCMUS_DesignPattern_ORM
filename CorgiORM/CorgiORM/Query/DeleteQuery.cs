@@ -23,12 +23,12 @@ namespace CorgiORM
         }
         public override int Execute()
         {
-            string conditionStr = condition.toSQL(attributeList, table);
+            string conditionStr = condition.parseDataToString(attributeList, table);
             if (conditionStr.Length == 0)
             {
-                return configDB.Delete(parserDB.ParseDeleteQuery(table, ""));
+                return configDB.Delete(parserDB.ParseDataToDeleteQuery(table, ""));
             }
-            return configDB.Delete(parserDB.ParseDeleteQuery(table, conditionStr));
+            return configDB.Delete(parserDB.ParseDataToDeleteQuery(table, conditionStr));
         }
     }
 }

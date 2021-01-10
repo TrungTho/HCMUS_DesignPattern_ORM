@@ -5,10 +5,10 @@ namespace CorgiORM
     [AttributeUsage(AttributeTargets.All)]
     class TableName : FlagsAttribute
     {
-        public string tableName { get; set; }
-        public TableName(string name)
+        public string table { get; set; }
+        public TableName(string tableName)
         {
-            tableName = name;
+            this.table = tableName;
         }
     }
 }
