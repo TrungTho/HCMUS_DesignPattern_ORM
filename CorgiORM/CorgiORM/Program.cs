@@ -19,7 +19,7 @@ namespace CorgiORM
             ParserDB parserMySQL = fatoryMySQL.CreateParser();
             ORM<Employee> orm = new ORM<Employee>(configMySQL, parserMySQL);
 
-            //Employee employee1 = new Employee("test", "Male", "test@gmail.com", "12345", "HN", new DateTime(2020, 11, 12), 1);
+            //Employee employee1 = new Employee("test", "Male", "test@gmail.com", "12345", "HN", new DateTime(2020, 11, 12), 2);
             //int employee1Insert = orm.Insert(employee1).Execute();
             //Console.WriteLine(employee1);
 
@@ -27,26 +27,37 @@ namespace CorgiORM
             //int employee2Delete = orm.Delete().Execute();
             //Console.WriteLine(employee2Delete);
 
-            int employee1Update = orm
-                .Update()
-                .Set("diachi", "Việt Nam")
-                .Where(Condition.Equal("sdt", "12345"))
-                .Execute();
+            //int employee1Update = orm
+            //    .Update()
+            //    .Set("diachi", "Việt Nam")
+            //    .Where(Condition.Equal("sdt", "12345"))
+            //    .Execute();
 
-            int employee2Update = orm.Update().Execute();
+            //int employee2Update = orm.Update().Execute();
+            //Console.WriteLine(employee2Update);
+            //Console.WriteLine(employeeList.Count());
+            //foreach (Object e in employeeList)
+            //{
+            //    Employee employee = e as Employee;
 
-            Console.WriteLine(employee2Update);
-            List<Object> employeeList = orm.Select()
-                .Where(Condition.And(Condition.Equal("idnhanvien", 1), Condition.Equal("tennhanvien", "Tan"))).ToList();
-
-            Console.WriteLine(employeeList.Count());
-            foreach (Object e in employeeList)
+            //    Console.WriteLine("Name: " + employee.tennhanvien);
+            //    Console.WriteLine("---------------------");
+            //}
+            List<Object> res = orm
+                .Select()
+                .Where(Condition.GreaterThan("idphong",1))
+                .AddColumnsReturn("tennhanvien","ten")
+                .GroupBy("idphong")
+                .AddProjection("tennhanvien", Aggregate.COUNT, "dem")
+                .ToList();
+            foreach (Object r in res)
             {
-                Employee employee = e as Employee;
-
-                Console.WriteLine("Name: " + employee.tennhanvien);
-                Console.WriteLine("---------------------");
+                Dictionary<string, Object> dict = r as Dictionary<string, Object>;
+                Console.WriteLine("Name: " + dict["ten"]);
+                Console.WriteLine("Number of students in class: " + dict["dem"]);
+                Console.WriteLine("--------------------");
             }
+
             Console.ReadLine();
 
 

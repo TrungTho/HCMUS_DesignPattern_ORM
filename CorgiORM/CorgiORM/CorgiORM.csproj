@@ -90,6 +90,12 @@
   <ItemGroup>
     <Compile Include="AbstractFactoryDB\FactoryDB.cs" />
     <Compile Include="AbstractFactoryDB\FactoryMySQL.cs" />
+    <Compile Include="Condition\CompareOperator\GreaterThanCondition.cs" />
+    <Compile Include="Condition\CompareOperator\GreaterThanOrEqualCondition.cs" />
+    <Compile Include="Condition\CompareOperator\LessThanCondition.cs" />
+    <Compile Include="Condition\CompareOperator\LessThanOrEqualCondition.cs" />
+    <Compile Include="Condition\CompareOperator\LikeCondition.cs" />
+    <Compile Include="Condition\CompareOperator\NotCondition.cs" />
     <Compile Include="Condition\LogicalOperator\AndCondition.cs" />
     <Compile Include="Condition\Compare.cs" />
     <Compile Include="Condition\Condition.cs" />
@@ -97,8 +103,10 @@
     <Compile Include="Condition\CompareOperator\EqualCondition.cs" />
     <Compile Include="Condition\LogicalOperator\OrCondition.cs" />
     <Compile Include="ORM.cs" />
+    <Compile Include="Query\AggregateQuery.cs" />
     <Compile Include="Query\DeleteQuery.cs" />
     <Compile Include="Query\ExecuteQuery.cs" />
+    <Compile Include="Query\GroupByQuery.cs" />
     <Compile Include="Query\InsertQuery.cs" />
     <Compile Include="Query\SelectQuery.cs" />
     <Compile Include="Query\UpdateQuery.cs" />

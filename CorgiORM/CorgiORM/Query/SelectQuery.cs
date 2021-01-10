@@ -17,8 +17,8 @@ namespace CorgiORM
         public int DESC = 1;
 
         public Dictionary<string, string> attributeList;
-        public Dictionary<string, string> projections;
-        public Dictionary<string, string> aliasMap;
+        public Dictionary<string, string> columnsReturn;
+        public Dictionary<string, string> aliasColumnsReturn;
         protected Dictionary<string, int> orderBy;
 
         protected OrCondition condition;
@@ -29,11 +29,11 @@ namespace CorgiORM
             this.table = table;
             this.ConfigDB = ConfigDB;
             this.parser = parser;
-            this.projections = new Dictionary<string, string>();
+            this.columnsReturn = new Dictionary<string, string>();
             this.condition = new OrCondition();
             this.attributeList = attributeList;
             this.orderBy = new Dictionary<string, int>();
-            this.aliasMap = new Dictionary<string, string>();
+            this.aliasColumnsReturn = new Dictionary<string, string>();
         }
         public SelectQuery<T> Where(Condition condition)
         {
@@ -44,7 +44,7 @@ namespace CorgiORM
         public virtual string ConvertAttributesToString()
         {
             string attributesString = "";
-            if (projections.Count == 0)
+            if (columnsReturn.Count == 0)
             {
                 foreach (string key in attributeList.Keys)
                 {
@@ -54,12 +54,12 @@ namespace CorgiORM
             }
             else
             {
-                foreach (string projection in projections.Keys)
+                foreach (string projection in columnsReturn.Keys)
                 {
                     int index = projection.IndexOf("(");
                     string p = projection.Substring(0, index + 1);
                     p = p + table + "." + projection.Substring(index + 1);
-                    attributesString += p + " AS " + projections[projection] + ",";
+                    attributesString += p + " AS " + columnsReturn[projection] + ",";
                 }
                 attributesString = attributesString.Remove(attributesString.Length - 1, 1);
             }
@@ -115,11 +115,11 @@ namespace CorgiORM
 
         public virtual List<Object> ParseResult(List<List<string>> values)
         {
-            if (projections.Count == 0)
+            if (columnsReturn.Count == 0)
             {
                 foreach (string key in attributeList.Keys)
                 {
-                    aliasMap.Add(attributeList[key], key);
+                    aliasColumnsReturn.Add(attributeList[key], key);
                 }
             }
             List<Object> res = new List<Object>();
@@ -132,12 +132,12 @@ namespace CorgiORM
             for (int i = 1; i < values.Count; i++)
             {
                 Object obj = new object();
-                if (projections.Count == 0)
+                if (columnsReturn.Count == 0)
                 {
                     obj = new T();
                     for (int j = 0; j < values[i].Count; j++)
                     {
-                        PropertyInfo propInfo = type.GetProperty(aliasMap[colIndex[j]]);
+                        PropertyInfo propInfo = type.GetProperty(aliasColumnsReturn[colIndex[j]]);
                         Object convertObj = Convert.ChangeType(values[i][j], propInfo.PropertyType);
                         propInfo.SetValue(obj, convertObj);
                     }
@@ -147,7 +147,7 @@ namespace CorgiORM
                     obj = new Dictionary<string, Object>();
                     for (int j = 0; j < values[i].Count; j++)
                     {
-                        string propName = aliasMap[colIndex[j]];
+                        string propName = aliasColumnsReturn[colIndex[j]];
                         PropertyInfo propInfo = type.GetProperty(propName);
                         Object convertObj = Convert.ChangeType(values[i][j], propInfo.PropertyType);
                         ((Dictionary<string, Object>)obj).Add(colIndex[j], convertObj);
@@ -158,9 +158,33 @@ namespace CorgiORM
             return res;
         }
 
-        //public Include<T> Include(Type type, string[] st = null)
-        //{
-        //    return new Include<T>(this, type, st);
-        //}
+        public SelectQuery<T> OrderBy(string attr, string order = "ASC")
+        {
+            if (order.Equals("DECS"))
+            {
+                this.orderBy.Add(attributeList[attr], DESC);
+            }
+            else
+            {
+                this.orderBy.Add(attributeList[attr], ASC);
+            }
+            return this;
+        }
+        public SelectQuery<T> AddColumnsReturn(string attr, string alias = "")
+        {
+            if (alias.Length == 0)
+            {
+                alias = attr;
+            }
+            this.columnsReturn.Add(attributeList[attr], alias);
+            
+            this.aliasColumnsReturn.Add(alias, attr);
+            return this;
+        }
+        public GroupByQuery<T> GroupBy(string attr)
+        {
+            return new GroupByQuery<T>(this).GroupBy(attr);
+        }
+
     }
 }
