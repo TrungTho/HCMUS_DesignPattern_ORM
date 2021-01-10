@@ -1,14 +1,16 @@
-﻿using CorgiORM.Mapping;
+﻿using CorgiORM.Model;
 
 namespace CorgiORM {
     public class Customer {
-        [DataNames("ID", "ID")]
+        [DataNames("ID")]
         public string ID { get; set; }
 
-        [DataNames("Fullname", "Fullname")]
+        [DataNames("Fullname")]
         public string Fullname { get; set; }
 
-        [DataNames("Tel", "Tel")]
+        [DataNames("tele_tel")]
         public string tel { get; set; }
+
+        public string test { get; set; }
     }
 }

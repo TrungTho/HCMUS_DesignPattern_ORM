@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using System.Linq;
 
-namespace CorgiORM.Mapping {
+namespace CorgiORM.Model {
     public class Mapper {
 
         public Mapper() {
@@ -32,21 +31,21 @@ namespace CorgiORM.Mapping {
         }
 
         public void GetTableSchema(OleDbConnection con) {
-            DataTable table = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables
-                , new object[] { null, null, null, "TABLE" });
-            for (int i = 0; i < table.Rows.Count; i++) {
-                Console.WriteLine(table.Rows[i][2].ToString());
-            }
-
             string queryStr = "SELECT * FROM [MyCompany].[dbo].[Customer]";
             OleDbDataAdapter adapter = new OleDbDataAdapter(queryStr, con);
 
             DataSet customersTable = new DataSet();
             adapter.Fill(customersTable, "Customer");
-            Console.WriteLine(customersTable.Tables[0].Columns[0]);
+
+            string DBName = "Customer";
+            IEnumerable<Customer> customers = new List<Customer>();
 
             DataNamesMapper<Customer> mapper = new DataNamesMapper<Customer>();
-            List<Customer> customers = mapper.Map(customersTable.Tables[0]).ToList();
+            foreach (DataTable table in customersTable.Tables) {
+                if (table.TableName == DBName) {
+                    customers = mapper.Map(table);
+                }
+            }
 
             foreach (var customer in customers) {
                 Console.WriteLine("ID:" + customer.ID

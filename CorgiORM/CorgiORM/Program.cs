@@ -1,4 +1,4 @@
-﻿using CorgiORM.Mapping;
+﻿using CorgiORM.Model;
 using System;
 
 namespace CorgiORM {
