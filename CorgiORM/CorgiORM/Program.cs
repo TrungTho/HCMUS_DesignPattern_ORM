@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.Diagnostics;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace CorgiORM
 {
@@ -36,6 +32,7 @@ namespace CorgiORM
             }
         }
 
+        [STAThread]
         static void Main(string[] args)
         {
 
@@ -45,52 +42,65 @@ namespace CorgiORM
             // Buoc 1: Mo ket noi
             var connectionString = "Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes";
             var connection = new SqlConnection(connectionString);
-            try
+            while (false)
             {
-                var tableName = "customer";
-                string queryStr = $"select * from {tableName}";
-
-                var adapter = new SqlDataAdapter(queryStr, connection);
-                var builder = new SqlCommandBuilder(adapter);
-
-                var data = new DataSet();
-
-                adapter.Fill(data, tableName);
-
-                //Console.WriteLine(data.Tables.);
-
-                List<Customer> listCustomer = new List<Customer>();
-
-                for (var i = 0; i < data.Tables[tableName].Rows.Count; i++) 
+                try
                 {
-                    var row = data.Tables[tableName].Rows[i];
+                    var tableName = "customer";
+                    string queryStr = $"select * from {tableName}";
 
-                    //mapping
-                    Customer customer = new Customer(
-                        (int)row[0],
-                        (string)row[1],
-                        (string)row[2]);
+                    var adapter = new SqlDataAdapter(queryStr, connection);
+                    var builder = new SqlCommandBuilder(adapter);
 
-                    listCustomer.Add(customer);
+                    var data = new DataSet();
+
+                    adapter.Fill(data, tableName);
+
+                    //Console.WriteLine(data.Tables.);
+
+                    List<Customer> listCustomer = new List<Customer>();
+
+                    for (var i = 0; i < data.Tables[tableName].Rows.Count; i++)
+                    {
+                        var row = data.Tables[tableName].Rows[i];
+
+                        //mapping
+                        Customer customer = new Customer(
+                            (int)row[0],
+                            (string)row[1],
+                            (string)row[2]);
+
+                        listCustomer.Add(customer);
+                    }
+
+                    Console.WriteLine("------------------------");
+                    foreach (var datum in listCustomer)
+                        Console.WriteLine(datum.ToString());
+
+                    Console.ReadKey();
+
                 }
+                catch (Exception e)
+                {
 
-                Console.WriteLine("------------------------");
-                foreach (var datum in listCustomer)
-                    Console.WriteLine(datum.ToString());
-
-                Console.ReadKey();
-
+                    Debug.WriteLine(e);
+                }
             }
-            catch (Exception e)
-            {
 
-                Debug.WriteLine(e);
-            }
+            var test = new Customer(1,"OK","0.10.10.1");
+            getAllValueInObject(test);
+            Console.ReadKey();
         }
 
-        void doSomething<T>(T hehe)
+        static void getAllValueInObject<T>(T myObj)
         {
-            Console.WriteLine(hehe);
+            Console.WriteLine(myObj.GetType());
+            Console.WriteLine("Parsing...");
+            foreach (PropertyInfo attri in myObj.GetType().GetProperties())
+            {
+                //var value = attri.GetValue() as 
+                Console.WriteLine(attri.GetValue(myObj,null));
+            }
         }
     }
 }
