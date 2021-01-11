@@ -63,8 +63,8 @@ namespace CorgiORM
 
                     kt = false;
 
-                    adapter.Fill(data, tableName);
                     DataTable dataTable = data.Tables[tableName];
+                    adapter.Fill(data, tableName);
 
                     List<Customer> listCustomer = new List<Customer>();
 
