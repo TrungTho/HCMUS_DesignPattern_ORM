@@ -14,15 +14,15 @@ namespace CorgiORM
 
     public class CorgiORM
     {
-        private static CorgiORM _instance;
-        public static CorgiORM Instance {
+        private static CorgiORM _db;
+        public static CorgiORM DB {
             get
             {
-                if (_instance == null)
-                    _instance = new CorgiORM(connectionString);
-                return _instance;
+                if (_db == null)
+                    _db = new CorgiORM(connectionString);
+                return _db;
             }
-            set => _instance = value;
+            set => _db = value;
         }
 
         private static string connectionString;

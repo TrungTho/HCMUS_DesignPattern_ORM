@@ -4,22 +4,38 @@ namespace CorgiORM
 {
     class Program
     {
-       
+        class Customer
+        {
+            public int ID { get; set; }
+            public string Fullname { get; set; }
+            public string Tel { get; set; }
 
+            public override string ToString()
+            {
+                return $"{ID} - {Fullname} - {Tel}";
+            }
+
+            public Customer(int id, string name, string tel)
+            {
+                this.ID = id;
+                this.Fullname = name;
+                this.Tel = tel;
+            }
+
+            public Customer(string name, string tel)
+            {
+                this.Fullname = name;
+                this.Tel = tel;
+            }
+        }
 
         static void Main(string[] args)
         {
-            CorgiORM.Instance.Config("local/acb/pass", DatabaseType.SQL);
-            CorgiORM.Instance.CorgiAdd.execute("user", 1);
-            CorgiORM.Instance.CorgiGet.execute("customer", 2);
-            CorgiORM.Instance.CorgiGetAll.execute("product", 4);
-            CorgiORM.Instance.CorgiRemove.execute("Hehe", 1);
+            var newobj = new Customer("OK", "0.10.10.1");
 
-            Console.WriteLine("----------------------");
+            CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
-            CorgiORM.Instance.Config("10.210/dd/jafls", DatabaseType.SQL);
-            CorgiORM.Instance.CorgiGet.execute("customer", 2);
-            CorgiORM.Instance.CorgiGetAll.execute("product", 4);
+            CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);
 
 
             Console.ReadKey();
