@@ -29,7 +29,7 @@ namespace CorgiORM
 
         }
 
-        protected virtual bool buildRow<T>(T Object)
+        protected virtual bool applyRowChange(DataRow row)
         {
             return true;
         }
@@ -48,46 +48,6 @@ namespace CorgiORM
             {
                 Debug.WriteLine("CorgiORM: Connection Error...");
             }
-        }
-
-        /// <summary>
-        /// For insert/update/delete query
-        /// </summary>
-        /// <typeparam name="T"> class variable</typeparam>
-        /// <param name="tableName"> table name that apply query</param>
-        /// <param name="Object"> object that need to insert/delete/update to database</param>
-        public virtual void executeNonQuery<T>(string tableName, T Object)
-        {
-            this.tableName = tableName;
-            try
-            {
-            //connect to db
-            connect();
-            //build row to change in table
-            buildRow<T>(Object);
-
-            int res = this.dataAdapter.Update(dataSet.Tables[tableName]);
-
-            Debug.WriteLine($"CorgiORM: {res} row(s) effected!!!");
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("CorgiORM: Connection Error...");
-            }
-        }
-
-        public virtual void execute<T>(string tableName, T Object)
-        {
-            this.tableName = tableName;
-
-            Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
-        }
-
-        public virtual void executeGetFirst<T>(string tableName, T Object)
-        {
-            this.tableName = tableName;
-
-            Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
         }
 
         protected DataRow getDataFromObject<T>(T Object)
@@ -113,6 +73,49 @@ namespace CorgiORM
                 return null;
             }
         }
+        
+        /// <summary>
+        /// For insert/update/delete query
+        /// </summary>
+        /// <typeparam name="T"> class variable</typeparam>
+        /// <param name="tableName"> table name that apply query</param>
+        /// <param name="Object"> object that need to insert/delete/update to database</param>
+        public virtual void executeNonQuery<T>(string tableName, T Object)
+        {
+            this.tableName = tableName;
+            try
+            {
+            //connect to db
+            connect();
+            //build row to change in table
+            var row = getDataFromObject(Object);
+            //apply row to table with child define method
+            applyRowChange(row);
+
+            int res = this.dataAdapter.Update(dataSet.Tables[tableName]);
+
+            Debug.WriteLine($"CorgiORM: {res} row(s) effected!!!");
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("CorgiORM: Connection Error...");
+            }
+        }
+
+        public virtual void execute<T>(string tableName, T Object)
+        {
+            this.tableName = tableName;
+
+            Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
+        }
+
+        public virtual void executeGetFirst<T>(string tableName, T Object)
+        {
+            this.tableName = tableName;
+
+            Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
+        }
+
 
     }
 
@@ -123,12 +126,12 @@ namespace CorgiORM
 
         }
 
-        protected override bool buildRow<T>(T Object)
+        protected override bool applyRowChange(DataRow row)
         {
             try
             {
                 //add row to table in database
-                dataSet.Tables[tableName].Rows.Add(getDataFromObject(Object));
+                dataSet.Tables[tableName].Rows.Add(row);
 
                 return true;
             }
@@ -146,7 +149,7 @@ namespace CorgiORM
 
         }
 
-        protected override bool buildRow<T>(T Object)
+        protected override bool applyRowChange(DataRow row)
         {
             return true;
         }
@@ -159,7 +162,7 @@ namespace CorgiORM
 
         }
 
-        protected override bool buildRow<T>(T Object)
+        protected override bool applyRowChange(DataRow row)
         {
             return true;
         }
@@ -172,7 +175,7 @@ namespace CorgiORM
 
         }
 
-        protected override bool buildRow<T>(T Object)
+        protected override bool applyRowChange(DataRow row)
         {
             return true;
         }
@@ -185,7 +188,7 @@ namespace CorgiORM
 
         }
 
-        protected override bool buildRow<T>(T Object)
+        protected override bool applyRowChange(DataRow row)
         {
             return true;
         }
