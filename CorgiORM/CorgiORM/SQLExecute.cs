@@ -50,6 +50,15 @@ namespace CorgiORM
             }
         }
 
+        protected bool compareRow(DataRow row1, DataRow row2, int size)
+        {
+            for (int i = 0; i < size; i++)
+                if (row1[i].Equals(row2[i]) == false)
+                    return false;
+
+            return true;
+        }
+
         protected DataRow getDataFromObject<T>(T Object)
         {
             try
@@ -155,7 +164,7 @@ namespace CorgiORM
                 int index = -1, pos = 0;
                 foreach (DataRow x in dataSet.Tables[tableName].Rows)
                 {
-                    if (x[0].Equals(row[0]))
+                    if (compareRow(x, row, dataSet.Tables[tableName].Columns.Count))
                         index = pos;
                     pos++;
                 }
@@ -191,7 +200,30 @@ namespace CorgiORM
 
         protected override bool applyRowChange(DataRow row)
         {
-            return true;
+            try
+            {
+                //find row in table
+                int index = -1, pos = 0;
+                foreach (DataRow x in dataSet.Tables[tableName].Rows)
+                {
+                    if (compareRow(x,row,dataSet.Tables[tableName].Columns.Count))
+                        index = pos;
+                    pos++;
+                }
+
+                //Console.WriteLine(index);
+
+                if (index != -1)
+                {
+                    dataSet.Tables[tableName].Rows[index].Delete();
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 
