@@ -10,8 +10,8 @@ namespace CorgiORM
     public interface IExecute
     {
         void executeNonQuery<T>(string tableName, T Object);
-        void execute<T>(string tableName);
-        void executeGetFirst<T>(string tableName);
+        List<T> execute<T>(ISelectQueryBuilder Query);
+        Object executeGetFirst(ISelectQueryBuilder Query);
     }
 
     public class SQLExecute : IExecute
@@ -113,18 +113,48 @@ namespace CorgiORM
             }
         }
 
-        public virtual void execute<T>(string tableName)
+        public virtual List<T> execute<T>(ISelectQueryBuilder Query)
         {
-            this.tableName = tableName;
+            this.queryString = Query.getQueryString();
+            try
+            {
+                connect();
 
-            Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
+                //mapping dataset => list... and return list
+                List<T> res = new List<T>();
+
+
+                return res;
+            }
+            catch (Exception)
+            {
+                return null;
+
+                throw;
+            }
+
         }
 
-        public virtual void executeGetFirst<T>(string tableName)
+        public virtual Object executeGetFirst(ISelectQueryBuilder Query)
         {
-            this.tableName = tableName;
+            this.queryString = Query.getQueryString();
+            try
+            {
+                connect();
 
-            Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
+                //mapping dataset.table.row[0] => object... and return it
+
+                Object res = new Object();
+
+
+                return res;
+            }
+            catch (Exception)
+            {
+                return null;
+
+                throw;
+            }
         }
     }
 
@@ -150,15 +180,15 @@ namespace CorgiORM
             }
         }
 
-        public override void execute<T>(string tableName)
-        {
-            return;
-        }
+        //public override void execute(string tableName)
+        //{
+        //    return;
+        //}
 
-        public override void executeGetFirst<T>(string tableName)
-        {
-            return;
-        }
+        //public override void executeGetFirst(string tableName)
+        //{
+        //    return;
+        //}
     }
 
     public class SqlUpdate : SQLExecute
@@ -202,15 +232,6 @@ namespace CorgiORM
             }
         }
 
-        public override void execute<T>(string tableName)
-        {
-            return;
-        }
-
-        public override void executeGetFirst<T>(string tableName)
-        {
-            return;
-        }
     }
 
     public class SqlRemove : SQLExecute
@@ -247,25 +268,11 @@ namespace CorgiORM
                 return -1;
             }
         }
-
-        public override void execute<T>(string tableName)
-        {
-            return;
-        }
-
-        public override void executeGetFirst<T>(string tableName)
-        {
-            return;
-        }
     }
 
     public class SqlGet: SQLExecute
     {
-        private List<Tuple<string,Object>> whereCondition;
-        private List<string> groupByCondition;
-        private string havingCondition;
-        private List<string> orderByCondition;
-
+       
         public SqlGet(string connectionString) : base(connectionString)
         {
 
@@ -273,7 +280,7 @@ namespace CorgiORM
 
         protected override int applyRowChange(DataRow row)
         {
-            return -1;
+            return 1;
         }
 
         public override void executeNonQuery<T>(string tableName, T Object)

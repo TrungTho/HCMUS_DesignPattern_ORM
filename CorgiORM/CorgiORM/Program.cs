@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CorgiORM
 {
@@ -36,8 +37,13 @@ namespace CorgiORM
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
-            CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
+            //CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
             //CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
+
+            List<Tuple<string, Object>> wherecondition = new List<Tuple<string, object>>();
+            wherecondition.Add(Tuple.Create("ID",(Object)2));
+
+            //CorgiORM.DB.CorgiGet
 
 
             //Console.ReadKey();

@@ -56,7 +56,7 @@ namespace CorgiORM
                     this.CorgiUpdate = new SqlUpdate(this.ConnectionString);
                     this.CorgiRemove = new SqlRemove(this.ConnectionString);
                     this.CorgiGet = new SqlGet(this.ConnectionString);
-
+                    
                     break;
                 case DatabaseType.NoSQL:
                     break;
