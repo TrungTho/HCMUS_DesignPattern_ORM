@@ -10,8 +10,8 @@ namespace CorgiORM
     public interface IExecute
     {
         void executeNonQuery<T>(string tableName, T Object);
-        void execute<T>(string tableName, T Object);
-        void executeGetFirst<T>(string tableName, T Object);
+        void execute<T>(string tableName);
+        void executeGetFirst<T>(string tableName);
     }
 
     public class SQLExecute : IExecute
@@ -29,16 +29,16 @@ namespace CorgiORM
 
         }
 
-        protected virtual bool applyRowChange(DataRow row)
+        protected virtual int applyRowChange(DataRow row)
         {
-            return true;
+            return 0;
         }
 
         protected void connect()
         {
             try
             {
-            this.dataAdapter = new SqlDataAdapter($"select * from {tableName}",this.connectionString);
+            this.dataAdapter = new SqlDataAdapter(queryString,this.connectionString);
             this.commandBuilder = new SqlCommandBuilder(this.dataAdapter);
 
             this.dataSet = new DataSet();
@@ -92,6 +92,7 @@ namespace CorgiORM
         public virtual void executeNonQuery<T>(string tableName, T Object)
         {
             this.tableName = tableName;
+            this.queryString = $"select * from {tableName}";
             try
             {
             //connect to db
@@ -99,11 +100,12 @@ namespace CorgiORM
             //build row to change in table
             var row = getDataFromObject(Object);
             //apply row to table with child define method
-            applyRowChange(row);
+            int indexEffected = applyRowChange(row);
 
             int res = this.dataAdapter.Update(dataSet.Tables[tableName]);
+            connect();
 
-            Debug.WriteLine($"CorgiORM: {res} row(s) effected!!!");
+            Debug.WriteLine($"CorgiORM: {res} row(s) effected!!! Primary value: {dataSet.Tables[tableName].Rows[indexEffected][0]}");
             }
             catch (Exception)
             {
@@ -111,14 +113,14 @@ namespace CorgiORM
             }
         }
 
-        public virtual void execute<T>(string tableName, T Object)
+        public virtual void execute<T>(string tableName)
         {
             this.tableName = tableName;
 
             Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
         }
 
-        public virtual void executeGetFirst<T>(string tableName, T Object)
+        public virtual void executeGetFirst<T>(string tableName)
         {
             this.tableName = tableName;
 
@@ -133,19 +135,29 @@ namespace CorgiORM
 
         }
 
-        protected override bool applyRowChange(DataRow row)
+        protected override int applyRowChange(DataRow row)
         {
             try
             {
                 //add row to table in database
                 dataSet.Tables[tableName].Rows.Add(row);
 
-                return true;
+                return dataSet.Tables[tableName].Rows.Count-1;
             }
             catch (Exception)
             {
-                return false;
+                return -1;
             }
+        }
+
+        public override void execute<T>(string tableName)
+        {
+            return;
+        }
+
+        public override void executeGetFirst<T>(string tableName)
+        {
+            return;
         }
     }
 
@@ -156,7 +168,7 @@ namespace CorgiORM
 
         }
 
-        protected override bool applyRowChange(DataRow row)
+        protected override int applyRowChange(DataRow row)
         {
             try
             {
@@ -164,7 +176,7 @@ namespace CorgiORM
                 int index = -1, pos = 0;
                 foreach (DataRow x in dataSet.Tables[tableName].Rows)
                 {
-                    if (compareRow(x, row, dataSet.Tables[tableName].Columns.Count))
+                    if (x[0].Equals(row[0]))
                         index = pos;
                     pos++;
                 }
@@ -182,12 +194,22 @@ namespace CorgiORM
 
                 }
 
-                return true;
+                return index;
             }
             catch (Exception)
             {
-                return false;
+                return -1;
             }
+        }
+
+        public override void execute<T>(string tableName)
+        {
+            return;
+        }
+
+        public override void executeGetFirst<T>(string tableName)
+        {
+            return;
         }
     }
 
@@ -198,7 +220,7 @@ namespace CorgiORM
 
         }
 
-        protected override bool applyRowChange(DataRow row)
+        protected override int applyRowChange(DataRow row)
         {
             try
             {
@@ -218,39 +240,47 @@ namespace CorgiORM
                     dataSet.Tables[tableName].Rows[index].Delete();
                 }
 
-                return true;
+                return index;
             }
             catch (Exception)
             {
-                return false;
+                return -1;
             }
         }
-    }
 
-    public class SqlGetAll: SQLExecute
-    {
-        public SqlGetAll(string connectionString) : base(connectionString)
+        public override void execute<T>(string tableName)
         {
-
+            return;
         }
 
-        protected override bool applyRowChange(DataRow row)
+        public override void executeGetFirst<T>(string tableName)
         {
-            return true;
+            return;
         }
     }
 
     public class SqlGet: SQLExecute
     {
+        private List<Tuple<string,Object>> whereCondition;
+        private List<string> groupByCondition;
+        private string havingCondition;
+        private List<string> orderByCondition;
+
         public SqlGet(string connectionString) : base(connectionString)
         {
 
         }
 
-        protected override bool applyRowChange(DataRow row)
+        protected override int applyRowChange(DataRow row)
         {
-            return true;
+            return -1;
         }
+
+        public override void executeNonQuery<T>(string tableName, T Object)
+        {
+            return;
+        }
+
     }
 
 }

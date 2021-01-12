@@ -31,16 +31,16 @@ namespace CorgiORM
 
         static void Main(string[] args)
         {
-            var newobj = new Customer(20,"Nguyễn Văn Hải", "10570137501346");
-            //var newobj = new Customer(20,"Nguyễn Văn Hải", "10570137501346");
+            //var newobj = new Customer(2,"Trà Mỹ Phương", "hehe");
+            var newobj = new Customer(23,"Nguyễn Văn Hải", "11111111");
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
-            //CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);
-            CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
+            CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
+            //CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
 
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

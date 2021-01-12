@@ -33,7 +33,6 @@ namespace CorgiORM
         public IExecute CorgiAdd;
         public IExecute CorgiUpdate;
         public IExecute CorgiRemove;
-        public IExecute CorgiGetAll;
         public IExecute CorgiGet;
 
         private CorgiORM(string connectionString)
@@ -56,8 +55,8 @@ namespace CorgiORM
                     this.CorgiAdd = new SqlAdd(this.ConnectionString);
                     this.CorgiUpdate = new SqlUpdate(this.ConnectionString);
                     this.CorgiRemove = new SqlRemove(this.ConnectionString);
-                    this.CorgiGetAll = new SqlGetAll(this.ConnectionString);
                     this.CorgiGet = new SqlGet(this.ConnectionString);
+
                     break;
                 case DatabaseType.NoSQL:
                     break;
