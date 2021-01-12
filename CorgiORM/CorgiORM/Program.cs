@@ -44,6 +44,8 @@ namespace CorgiORM
                 .Where("id", new DateTime(2020, 10, 1))
                 .GroupBy("id").GroupBy("name")
                 .Having("COUNT(ID)>0")
+                .OrderBy("id",OrderType.DESC)
+                 .OrderBy("name", OrderType.DESC)
                 .getQueryString());
             //CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
 

@@ -12,6 +12,7 @@ namespace CorgiORM
         ISelectQueryBuilder Where(string fieldName, Object value);
         ISelectQueryBuilder GroupBy(string fieldName);
         ISelectQueryBuilder Having(string condition);
+        ISelectQueryBuilder OrderBy(string fieldName,string type);
     }
 
     public class SQLSelectBuilder: ISelectQueryBuilder
@@ -33,7 +34,7 @@ namespace CorgiORM
         public string getQueryString()
         {
             return $"select * from {tableName} {whereCondition} {getValidStr(groupByCondition)} " +
-                $"{havingCondition} {orderByCondition}";
+                $"{havingCondition} {getValidStr(orderByCondition)}";
         }
 
         public string getValue(Object obj)
@@ -82,6 +83,19 @@ namespace CorgiORM
             else
             {
                 this.whereCondition += " AND " + fieldName + "=" + getValue(value);
+            }
+            return this;
+        }
+
+        public ISelectQueryBuilder OrderBy(string fieldName, string type)
+        {
+            if (this.orderByCondition == null)
+            {
+                this.orderByCondition = " ORDER BY(" + fieldName + " " + type + " ";
+            }
+            else
+            {
+                this.orderByCondition += "," + fieldName + " " + type + " ";
             }
             return this;
         }
