@@ -34,7 +34,7 @@ namespace CorgiORM
             return 0;
         }
 
-        protected void connect()
+        protected void connectAndLoadData()
         {
             try
             {
@@ -96,14 +96,15 @@ namespace CorgiORM
             try
             {
             //connect to db
-            connect();
+            connectAndLoadData();
             //build row to change in table
             var row = getDataFromObject(Object);
             //apply row to table with child define method
             int indexEffected = applyRowChange(row);
 
+            //update to db
             int res = this.dataAdapter.Update(dataSet.Tables[tableName]);
-            connect();
+            connectAndLoadData();
 
             Debug.WriteLine($"CorgiORM: {res} row(s) effected!!! Primary value: {dataSet.Tables[tableName].Rows[indexEffected][0]}");
             }
@@ -113,12 +114,18 @@ namespace CorgiORM
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Query"></param>
+        /// <returns></returns>
         public virtual List<T> execute<T>(ISelectQueryBuilder Query)
         {
-            this.queryString = Query.getQueryString();
             try
             {
-                connect();
+                this.queryString = Query.getQueryString();
+                connectAndLoadData();
 
                 //mapping dataset => list... and return list
                 List<T> res = new List<T>();
@@ -135,12 +142,17 @@ namespace CorgiORM
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Query"></param>
+        /// <returns></returns>
         public virtual Object executeGetFirst(ISelectQueryBuilder Query)
         {
             this.queryString = Query.getQueryString();
             try
             {
-                connect();
+                connectAndLoadData();
 
                 //mapping dataset.table.row[0] => object... and return it
 

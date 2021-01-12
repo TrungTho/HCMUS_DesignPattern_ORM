@@ -33,20 +33,26 @@ namespace CorgiORM
         static void Main(string[] args)
         {
             //var newobj = new Customer(2,"Trà Mỹ Phương", "hehe");
-            var newobj = new Customer(23,"Nguyễn Văn Hải", "11111111");
+            var newobj = new Customer(23,"Nguyễn Văn Hải", "000");
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
+            CorgiORM.DB.CorgiAdd.executeNonQuery("Customer", newobj);
+            //CorgiORM.DB.CorgiRemove.executeNonQuery("Customer", newobj);
+            
+            //List<Customer> customers= CorgiORM.DB.CorgiGet.execute((SQLSelectBuilder)ISelectQueryBuilder.Wherw().Add().getQueryString());            
+            //List<Customer> customers= CorgiORM.DB.CorgiGet.execute("select * from kasf having we");            
 
-            //CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
-            //CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
+            Object a = 1, b = "11", c = true;
+            Console.WriteLine($"{a} {b} {c}");
 
-            List<Tuple<string, Object>> wherecondition = new List<Tuple<string, object>>();
-            wherecondition.Add(Tuple.Create("ID",(Object)2));
+
+            //CorgiORM.DB.CorgiGet.execute("");
+
 
             //CorgiORM.DB.CorgiGet
 
 
-            //Console.ReadKey();
+            Console.ReadKey();
         }
     }
 }
