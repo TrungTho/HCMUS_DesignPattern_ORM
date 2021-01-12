@@ -39,7 +39,8 @@ namespace CorgiORM
 
             // CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
             ISelectQueryBuilder x = new SQLSelectBuilder("customer");
-            Console.WriteLine(x.Where("id",new DateTime(2020,10,1)).Where("name","Asd").getQueryString());
+            Console.WriteLine(x.Where("id",new DateTime(2020,10,1))
+                .GroupBy("id").GroupBy("name").getQueryString());
             //CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
 
             //List<Tuple<string, Object>> wherecondition = new List<Tuple<string, object>>();
