@@ -115,8 +115,6 @@ namespace CorgiORM
 
             Console.WriteLine($"{connectionString} \n {queryString} \n {tableName}");
         }
-
-
     }
 
     public class SqlAdd : SQLExecute
@@ -151,7 +149,36 @@ namespace CorgiORM
 
         protected override bool applyRowChange(DataRow row)
         {
-            return true;
+            try
+            {
+                //find row in table
+                int index = -1, pos = 0;
+                foreach (DataRow x in dataSet.Tables[tableName].Rows)
+                {
+                    if (x[0].Equals(row[0]))
+                        index = pos;
+                    pos++;
+                }
+
+                if (index!=-1)
+                {
+                    dataSet.Tables[tableName].Rows[index].BeginEdit();
+                    for (var i=0;i<dataSet.Tables[tableName].Columns.Count;i++)
+                    {
+                        dataSet.Tables[tableName].Rows[index][i] = row[i];
+                    }
+
+                    dataSet.Tables[tableName].Rows[index].EndEdit();
+                    
+
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 

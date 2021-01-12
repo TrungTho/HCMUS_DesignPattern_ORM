@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace CorgiORM
 {
@@ -31,11 +31,11 @@ namespace CorgiORM
 
         static void Main(string[] args)
         {
-            var newobj = new Customer("OK", "0.10.10.1");
+            var newobj = new Customer(1,"Nguyễn Văn Hải", "456");
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
-            CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);
+            CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
 
 
             Console.ReadKey();
