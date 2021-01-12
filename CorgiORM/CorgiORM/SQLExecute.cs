@@ -37,12 +37,12 @@ namespace CorgiORM
         protected void connect()
         {
             try
-            {
-            this.dataAdapter = new SqlDataAdapter(queryString,this.connectionString);
+            {               
+             this.dataAdapter = new SqlDataAdapter(queryString,this.connectionString);
             this.commandBuilder = new SqlCommandBuilder(this.dataAdapter);
 
-            this.dataSet = new DataSet();
-            dataAdapter.Fill(dataSet, tableName);
+            this.dataSet = new DataSet();        
+            dataAdapter.Fill(dataSet, tableName);              
             }
             catch (Exception)
             {
@@ -98,7 +98,7 @@ namespace CorgiORM
             //connect to db
             connect();
             //build row to change in table
-            var row = getDataFromObject(Object);
+            var row = getDataFromObject(Object);         
             //apply row to table with child define method
             int indexEffected = applyRowChange(row);
 

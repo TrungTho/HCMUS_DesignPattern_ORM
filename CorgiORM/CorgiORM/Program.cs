@@ -37,16 +37,18 @@ namespace CorgiORM
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
-            //CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
+            // CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
+            ISelectQueryBuilder x = new SQLSelectBuilder("customer");
+            Console.WriteLine(x.Where("id",new DateTime(2020,10,1)).Where("name","Asd").getQueryString());
             //CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
 
-            List<Tuple<string, Object>> wherecondition = new List<Tuple<string, object>>();
-            wherecondition.Add(Tuple.Create("ID",(Object)2));
+            //List<Tuple<string, Object>> wherecondition = new List<Tuple<string, object>>();
+            //wherecondition.Add(Tuple.Create("ID",(Object)2));
 
             //CorgiORM.DB.CorgiGet
 
 
-            //Console.ReadKey();
+            Console.ReadKey();
         }
     }
 }

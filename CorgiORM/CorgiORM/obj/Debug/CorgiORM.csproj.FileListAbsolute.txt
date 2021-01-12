@@ -5,3 +5,26 @@ D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe.config
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\CorgiORM.pdb
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csprojAssemblyReference.cache
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\MySql.Data.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\Google.Protobuf.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\Zstandard.Net.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\K4os.Compression.LZ4.Streams.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\BouncyCastle.Crypto.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\Ubiety.Dns.Core.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\Renci.SshNet.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Memory.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Buffers.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\K4os.Compression.LZ4.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\K4os.Hash.xxHash.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Numerics.Vectors.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\MySql.Data.xml
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe.config
+E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CopyComplete
