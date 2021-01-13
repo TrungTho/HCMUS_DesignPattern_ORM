@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace CorgiORM
 {
-        public class SQLSelectBuilder : ISelectQueryBuilder
+        class SQLSelectBuilder : ISelectQueryBuilder
         {
             private string whereCondition;
             private string groupByCondition;
             private string havingCondition;
             private string orderByCondition;
             private string tableName;
-
-            public SQLSelectBuilder(string table)
+            private OrCondition condition = new OrCondition();
+            private Dictionary<string, string> attributeList;
+            
+        public SQLSelectBuilder(string table,Dictionary<string,string> attributes)
             {
                 this.tableName = table;
+                this.attributeList = attributes;
             }
             public string getValidStr(string obj)
             {
@@ -24,8 +27,9 @@ namespace CorgiORM
             }
             public string getQueryString()
             {
-                return $"select * from {tableName} {whereCondition} {getValidStr(groupByCondition)} " +
-                    $"{havingCondition} {getValidStr(orderByCondition)}";
+                return $"select * from {tableName} " +
+                $"{condition.parseDataToString(attributeList,tableName)} {groupByCondition} " +
+                    $"{havingCondition} {orderByCondition}";
             }
 
             public string getValue(Object obj)
@@ -65,16 +69,9 @@ namespace CorgiORM
                 return this;
             }
 
-            public ISelectQueryBuilder Where(string fieldName, Object value)
+            public ISelectQueryBuilder Where(Condition whereCondition)
             {
-                if (this.whereCondition == null)
-                {
-                    this.whereCondition = "WHERE " + fieldName + "=" + getValue(value);
-                }
-                else
-                {
-                    this.whereCondition += " AND " + fieldName + "=" + getValue(value);
-                }
+                this.condition.Add(whereCondition);
                 return this;
             }
 

@@ -1,34 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace CorgiORM
 {
     class Program
     {
-        class Customer
-        {
-            public int ID { get; set; }
-            public string Fullname { get; set; }
-            public string Tel { get; set; }
-
-            public override string ToString()
-            {
-                return $"{ID} - {Fullname} - {Tel}";
-            }
-
-            public Customer(int id, string name, string tel)
-            {
-                this.ID = id;
-                this.Fullname = name;
-                this.Tel = tel;
-            }
-
-            public Customer(string name, string tel)
-            {
-                this.Fullname = name;
-                this.Tel = tel;
-            }
-        }
 
         static void Main(string[] args)
         {
@@ -38,15 +15,19 @@ namespace CorgiORM
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
             // CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
-            ISelectQueryBuilder x = new SQLSelectBuilder("customer");
+            Dictionary<string, string> attributeList = new Dictionary<string, string>();
+            PropertyInfo[] propertyInfo = typeof(Customer).GetProperties();
+            foreach (PropertyInfo pInfo in propertyInfo)
+            {
+                attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName.ToLower());
+            }
+            
+            ISelectQueryBuilder x = new SQLSelectBuilder("customer",attributeList);
             Console.WriteLine(x
-                .Where("id", new DateTime(2020, 10, 1))
-                .Where("id", new DateTime(2020, 10, 1))
-                .GroupBy("id").GroupBy("name")
-                .Having("COUNT(ID)>0")
-                .OrderBy("id", OrderType.DESC)
-                .OrderBy("name", OrderType.DESC)
+                .Where(Condition.And(Condition.Equal("Id",1),Condition.GreaterThan("ten","2")))
+                .Where(Not(Condition.Equal("Id",2)))
                 .getQueryString());
+            //Console.WriteLine(Condition.Equal("id", 1).parseDataToString());
             //CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);
 
             //List<Tuple<string, Object>> wherecondition = new List<Tuple<string, object>>();
