@@ -44,7 +44,7 @@ namespace CorgiORM
                     return "\"" + obj.ToString() + "\"";
                 else if (obj.GetType() == typeof(DateTime))
                 {
-                    return "\"" + ((DateTime)obj).ToString("yyyy-MM-dd HH:mm:ss") + "\"";
+                    return "\"" + ((DateTime)obj).ToString("yyyy-MM-dd") + "\"";
                 }
                 return obj.ToString();
             }
