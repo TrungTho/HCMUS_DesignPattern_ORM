@@ -33,21 +33,21 @@ namespace CorgiORM
         static void Main(string[] args)
         {
             //var newobj = new Customer(2,"Trà Mỹ Phương", "hehe");
-            var newobj = new Customer(23,"Nguyễn Văn Hải", "11111111");
+            var newobj = new Customer("Nguyễn Văn Hải", "11111111");
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
             // CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
-            ISelectQueryBuilder x = new SQLSelectBuilder("customer");
-            Console.WriteLine(x
-                .Where("id",new DateTime(2020,10,1))
-                .Where("id", new DateTime(2020, 10, 1))
-                .GroupBy("id").GroupBy("name")
-                .Having("COUNT(ID)>0")
-                .OrderBy("id",OrderType.DESC)
-                 .OrderBy("name", OrderType.DESC)
-                .getQueryString());
-            //CorgiORM.DB.CorgiRemove.executeNonQuery("customer", newobj);
+           // ISelectQueryBuilder x = new SQLSelectBuilder("customer");
+            //Console.WriteLine(x
+            //    .Where("id",new DateTime(2020,10,1))
+            //    .Where("id", new DateTime(2020, 10, 1))
+            //    .GroupBy("id").GroupBy("name")
+            //    .Having("COUNT(ID)>0")
+            //    .OrderBy("id",OrderType.DESC)
+            //    .OrderBy("name", OrderType.DESC)
+            //    .getQueryString());
+            CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);
 
             //List<Tuple<string, Object>> wherecondition = new List<Tuple<string, object>>();
             //wherecondition.Add(Tuple.Create("ID",(Object)2));
