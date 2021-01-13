@@ -11,7 +11,7 @@ namespace CorgiORM
         string getQueryString();
         ISelectQueryBuilder Where(Condition condition);
         ISelectQueryBuilder GroupBy(string fieldName);
-        ISelectQueryBuilder Having(string condition);
+        ISelectQueryBuilder Having(Condition condition);
         ISelectQueryBuilder OrderBy(string fieldName, string type);
     }
 }

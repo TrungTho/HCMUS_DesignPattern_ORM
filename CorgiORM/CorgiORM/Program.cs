@@ -27,7 +27,7 @@ namespace CorgiORM
                 .Where(Condition.And(Condition.Equal("Id", 1), Condition.GreaterThan("ten", "2")))
                 .Where(new Not(Condition.Equal("Id", 1)))
                 .GroupBy("Id")
-                .GroupBy("Id")
+                .Having(Condition.Equal("Id",1))
                 .getQueryString());
             //Console.WriteLine(Condition.Equal("id", 1).parseDataToString());
             //CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);

@@ -8,12 +8,11 @@ namespace CorgiORM
 {
         class SQLSelectBuilder : ISelectQueryBuilder
         {
-            private string whereCondition;
             private string groupByCondition;
-            private string havingCondition;
             private string orderByCondition;
             private string tableName;
             private OrCondition condition = new OrCondition();
+            private OrCondition havingCondition = new OrCondition();
             private Dictionary<string, string> attributeList;
             
         public SQLSelectBuilder(string table,Dictionary<string,string> attributes)
@@ -36,7 +35,7 @@ namespace CorgiORM
                 }
                 return $"select * from {tableName} where " +
                 $"{condition.parseDataToString(attributeList,tableName)} {getValidStr(groupByCondition)} " +
-                    $"{havingCondition} {orderByCondition}";
+                    $"having {havingCondition.parseDataToString(attributeList,tableName)} {orderByCondition}";
             }
 
             public string getValue(Object obj)
@@ -63,16 +62,9 @@ namespace CorgiORM
                 return this;
             }
 
-            public ISelectQueryBuilder Having(string condition)
+            public ISelectQueryBuilder Having(Condition condition)
             {
-                if (this.havingCondition == null)
-                {
-                    this.havingCondition = "HAVING " + condition;
-                }
-                else
-                {
-                    this.havingCondition += " AND " + condition;
-                }
+                this.havingCondition.Add(condition);
                 return this;
             }
 
