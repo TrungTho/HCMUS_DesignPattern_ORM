@@ -27,8 +27,15 @@ namespace CorgiORM
             }
             public string getQueryString()
             {
-                return $"select * from {tableName} " +
-                $"{condition.parseDataToString(attributeList,tableName)} {groupByCondition} " +
+                if(groupByCondition == null)
+                {
+                    if (havingCondition != null)
+                    {
+                        throw new Exception("Having condition must belong to group by condition");
+                    }
+                }
+                return $"select * from {tableName} where " +
+                $"{condition.parseDataToString(attributeList,tableName)} {getValidStr(groupByCondition)} " +
                     $"{havingCondition} {orderByCondition}";
             }
 
@@ -47,11 +54,11 @@ namespace CorgiORM
             {
                 if (this.groupByCondition == null)
                 {
-                    this.groupByCondition = "GROUP BY(" + fieldName;
+                    this.groupByCondition = "GROUP BY(" + fieldName + " ";
                 }
                 else
                 {
-                    this.groupByCondition += "," + fieldName;
+                    this.groupByCondition += "," + fieldName+" ";
                 }
                 return this;
             }

@@ -19,13 +19,15 @@ namespace CorgiORM
             PropertyInfo[] propertyInfo = typeof(Customer).GetProperties();
             foreach (PropertyInfo pInfo in propertyInfo)
             {
-                attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName.ToLower());
+                attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName);
             }
             
             ISelectQueryBuilder x = new SQLSelectBuilder("customer",attributeList);
             Console.WriteLine(x
-                .Where(Condition.And(Condition.Equal("Id",1),Condition.GreaterThan("ten","2")))
-                .Where(Not(Condition.Equal("Id",2)))
+                .Where(Condition.And(Condition.Equal("Id", 1), Condition.GreaterThan("ten", "2")))
+                .Where(new Not(Condition.Equal("Id", 1)))
+                .GroupBy("Id")
+                .GroupBy("Id")
                 .getQueryString());
             //Console.WriteLine(Condition.Equal("id", 1).parseDataToString());
             //CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);

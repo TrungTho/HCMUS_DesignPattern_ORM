@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CorgiORM
 {
-     class Not:Condition
+     public class Not:Condition
     {
         protected Condition condition;
         public Not(Condition condition)
