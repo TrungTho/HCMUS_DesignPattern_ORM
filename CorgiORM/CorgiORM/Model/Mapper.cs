@@ -4,17 +4,21 @@ using System.Data;
 using System.Data.OleDb;
 
 namespace CorgiORM.Model {
-    public class Mapper<T> where T : new() {
+    public class Mapper {
 
-        public void run(List<T> res) {
+        Mapper() {
+            run();
+        }
+
+        public void run() {
             string connectionString;
 
             OleDbConnection con;
 
             connectionString = "Server=localhost\\SqlExpress;" +
-                        "Database=MyCompany;" +
-                        "Trusted_Connection=yes;" +
-                        "Provider=SQLOLEDB";
+                            "Database=MyCompany;" +
+                            "Trusted_Connection=yes;" +
+                            "Provider=SQLOLEDB";
             con = new OleDbConnection(connectionString);
             con.Open();
             Console.WriteLine("Connected");
@@ -27,9 +31,21 @@ namespace CorgiORM.Model {
 
             string DBName = "Customer";
 
+            List<Customer> res = new List<Customer>();
+
+            res = transform<Customer>
+
+
+
+
+        }
+
+        public List<T> transform<T>(DataSet data, string DBName) where T : new() {
+
+
             DataNamesMapper<T> mapper = new DataNamesMapper<T>();
 
-            res = mapper.GetTableSchema(customersTable, DBName);
+            mapper.GetTableSchema(data, DBName);
         }
 
         /*public Mapper() {

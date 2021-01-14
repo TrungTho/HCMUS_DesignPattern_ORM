@@ -1,14 +1,12 @@
-﻿using System;
+﻿using CorgiORM.Model;
+using System;
 
 namespace CorgiORM {
     class Program {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
 
-            List<Customer> res;
-
-
-
+            Mapper map = new Mapper();
 
             Console.ReadKey();
 
