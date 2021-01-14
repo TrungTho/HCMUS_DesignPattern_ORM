@@ -35,11 +35,11 @@ namespace CorgiORM {
             res = map.MapDataWithList<Customer>(customersTable, DBName);
 
             cus = map.MapDataWithObject<Customer>(customersTable.Tables[0].Rows[0]);
-            /*foreach (var customer in res) {
+            foreach (var customer in res) {
                 Console.WriteLine("ID:" + customer.ID
                 + ", fullname: " + customer.Fullname
                 + ", telephone: " + customer.tel);
-            }*/
+            }
 
             Console.WriteLine("ID:" + cus.ID
                 + ", fullname: " + cus.Fullname

@@ -1,52 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 
 namespace CorgiORM.Model {
     public class DataNamesMapper<TEntity> where TEntity : new() {
-        public TEntity Map(DataRow row) {
-            /*List<string> columnNames = new List<string>;
-            var Allcolumns = row.Table.Columns;
-            foreach (DataColumn col in Allcolumns) {
-                columnNames.Add(col.ColumnName);
-            }*/
-            /*.Cast<DataColumn>().Select(x => x.ColumnName).ToList();*/
-
+        //get all custom attribute (DataNames attribute) from TEntity
+        private List<PropertyInfo> GetDataNamesAttributeFields<TEntity>() {
+            //Get list of properties of TEntity
             PropertyInfo[] Allproperties = (typeof(TEntity)).GetProperties();
+
+            //Get field with datanames attribute only
             List<PropertyInfo> properties = new List<PropertyInfo>();
             foreach (PropertyInfo prop in Allproperties) {
                 object[] customAttr = prop.GetCustomAttributes(typeof(DataNamesAttribute), true);
                 if (customAttr.Length > 0) {
                     properties.Add(prop);
                 }
-
             }
 
-            /*.Where(x =>
-            x.GetCustomAttributes(typeof(DataNamesAttribute), true).Any()).ToList();*/
+            return properties;
+        }
 
+        //map datarơ ==> an entity object
+        public TEntity Map(DataRow row) {
+            //Get field with datanames attribute only
+            List<PropertyInfo> properties = GetDataNamesAttributeFields<TEntity>();
 
             TEntity entity = new TEntity();
+            //for each field => set value with column has name equal to field valueName
             foreach (var prop in properties) {
                 PropertyMapHelper.Map(typeof(TEntity), row, prop, entity);
             }
             return entity;
         }
 
+        //map dataset ==> list of entity object
         public IEnumerable<TEntity> Map(DataTable table) {
-
-            //list all TEntity public field
-            var allProperties = (typeof(TEntity)).GetProperties();
-
-            //choose TEntity public field applied DataNames attribute (return PropertyInfo[])
-            List<PropertyInfo> properties = new List<PropertyInfo>();
-            foreach (PropertyInfo prop in allProperties) {
-                if (Attribute.IsDefined(prop, typeof(DataNamesAttribute))) {
-                    properties.Add(prop);
-                };
-            }
-
+            //Get field with datanames attribute only
+            List<PropertyInfo> properties = GetDataNamesAttributeFields<TEntity>();
             //create a list of TEntity
             List<TEntity> entities = new List<TEntity>();
 
@@ -55,7 +46,7 @@ namespace CorgiORM.Model {
                 TEntity entity = new TEntity();
                 //for each field declared in TEntity (user-defined model) map it with PropertyMapHelper
                 foreach (var prop in properties) {
-                    //fill entity fields with row data
+                    //for each field => set value with column has name equal to field valueName
                     PropertyMapHelper.Map(typeof(TEntity), row, prop, entity);
                 }
                 //add object-transformed row to list
