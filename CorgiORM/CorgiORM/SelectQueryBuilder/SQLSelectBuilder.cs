@@ -26,16 +26,35 @@ namespace CorgiORM
             }
             public string getQueryString()
             {
-                if(groupByCondition == null)
+                string groupByFormat = "";
+                string havingFormat = "";
+                string whereFormat = "";
+                if(condition.parseDataToString(attributeList, tableName)!="")
                 {
-                    if (havingCondition != null)
+                    whereFormat = "WHERE " + condition.parseDataToString(attributeList, tableName);
+                }
+                if (groupByCondition != null)
+                {
+                    groupByFormat = getValidStr(groupByCondition);
+                    if (havingCondition.parseDataToString(attributeList, tableName) != "")
+                    {
+                        havingFormat = "HAVING " + havingCondition.parseDataToString(attributeList, tableName);
+                    }
+                }
+               
+                if (groupByCondition == null)
+                {
+                    if (havingCondition.parseDataToString(attributeList,tableName) != "")
                     {
                         throw new Exception("Having condition must belong to group by condition");
                     }
                 }
-                return $"select * from {tableName} where " +
-                $"{condition.parseDataToString(attributeList,tableName)} {getValidStr(groupByCondition)} " +
-                    $"having {havingCondition.parseDataToString(attributeList,tableName)} {orderByCondition}";
+                
+                return $"select * from {tableName}" +
+                $" {whereFormat} " +
+                $" {groupByFormat} " +
+                $"{havingFormat} " +
+                $"{orderByCondition}";
             }
 
             public string getValue(Object obj)
