@@ -4,7 +4,7 @@ using System.Data;
 namespace CorgiORM.Model {
     public class Mapper {
 
-        public List<TEntity> MapDataWithList<TEntity>(DataSet data, string DBName) where TEntity : new() {
+        public static List<TEntity> MapDataWithList<TEntity>(DataSet data, string DBName) where TEntity : new() {
             List<TEntity> objectList = new List<TEntity>();
             DataNamesMapper<TEntity> mapper = new DataNamesMapper<TEntity>();
 
@@ -17,7 +17,7 @@ namespace CorgiORM.Model {
             return objectList;
         }
 
-        public TEntity MapDataWithObject<TEntity>(DataRow row) where TEntity : new() {
+        public static TEntity MapDataWithObject<TEntity>(DataRow row) where TEntity : new() {
             TEntity Object = new TEntity();
             DataNamesMapper<TEntity> mapper = new DataNamesMapper<TEntity>();
             Object = mapper.Map(row);

@@ -5,7 +5,7 @@ using System.Reflection;
 namespace CorgiORM.Model {
     public class DataNamesMapper<TEntity> where TEntity : new() {
         //get all custom attribute (DataNames attribute) from TEntity
-        private List<PropertyInfo> GetDataNamesAttributeFields<TEntity>() {
+        private List<PropertyInfo> GetDataNamesAttributeFields() {
             //Get list of properties of TEntity
             PropertyInfo[] Allproperties = (typeof(TEntity)).GetProperties();
 
@@ -24,7 +24,7 @@ namespace CorgiORM.Model {
         //map datarơ ==> an entity object
         public TEntity Map(DataRow row) {
             //Get field with datanames attribute only
-            List<PropertyInfo> properties = GetDataNamesAttributeFields<TEntity>();
+            List<PropertyInfo> properties = GetDataNamesAttributeFields();
 
             TEntity entity = new TEntity();
             //for each field => set value with column has name equal to field valueName
@@ -37,7 +37,7 @@ namespace CorgiORM.Model {
         //map dataset ==> list of entity object
         public IEnumerable<TEntity> Map(DataTable table) {
             //Get field with datanames attribute only
-            List<PropertyInfo> properties = GetDataNamesAttributeFields<TEntity>();
+            List<PropertyInfo> properties = GetDataNamesAttributeFields();
             //create a list of TEntity
             List<TEntity> entities = new List<TEntity>();
 
