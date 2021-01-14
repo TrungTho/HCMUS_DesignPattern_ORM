@@ -4,33 +4,21 @@ using System.Data;
 using System.Data.OleDb;
 
 namespace CorgiORM.Model {
-    public class Mapper {
+    public class Mapper<T> where T : new() {
 
-        public Mapper() {
-            ConnectDB();
-        }
-
-        public void ConnectDB() {
+        public void run(List<T> res) {
             string connectionString;
+
             OleDbConnection con;
 
             connectionString = "Server=localhost\\SqlExpress;" +
-                "Database=MyCompany;" +
-                "Trusted_Connection=yes;" +
-                "Provider=SQLOLEDB";
+                        "Database=MyCompany;" +
+                        "Trusted_Connection=yes;" +
+                        "Provider=SQLOLEDB";
+            con = new OleDbConnection(connectionString);
+            con.Open();
+            Console.WriteLine("Connected");
 
-            try {
-                con = new OleDbConnection(connectionString);
-                con.Open();
-                Console.WriteLine("Connected");
-                GetTableSchema(con);
-            }
-            catch (Exception err) {
-                Console.WriteLine("An error occured: " + err);
-            }
-        }
-
-        public void GetTableSchema(OleDbConnection con) {
             string queryStr = "SELECT * FROM [MyCompany].[dbo].[Customer]";
             OleDbDataAdapter adapter = new OleDbDataAdapter(queryStr, con);
 
@@ -38,20 +26,72 @@ namespace CorgiORM.Model {
             adapter.Fill(customersTable, "Customer");
 
             string DBName = "Customer";
-            IEnumerable<Customer> customers = new List<Customer>();
 
-            DataNamesMapper<Customer> mapper = new DataNamesMapper<Customer>();
-            foreach (DataTable table in customersTable.Tables) {
-                if (table.TableName == DBName) {
-                    customers = mapper.Map(table);
-                }
+            DataNamesMapper<T> mapper = new DataNamesMapper<T>();
+
+            res = mapper.GetTableSchema(customersTable, DBName);
+        }
+
+        /*public Mapper() {
+            ConnectDB();
+        }
+
+        public void ConnectDB(List<T> res) {
+            string connectionString;
+            OleDbConnection con;
+
+            connectionString = "Server=localhost\\SqlExpress;" +
+                        "Database=MyCompany;" +
+                        "Trusted_Connection=yes;" +
+                        "Provider=SQLOLEDB";
+
+            try {
+                con = new OleDbConnection(connectionString);
+                con.Open();
+                Console.WriteLine("Connected");
+
+                string queryStr = "SELECT * FROM [MyCompany].[dbo].[Customer]";
+                OleDbDataAdapter adapter = new OleDbDataAdapter(queryStr, con);
+
+                DataSet customersTable = new DataSet();
+                adapter.Fill(customersTable, "Customer");
+
+                string DBName = "Customer";
+
+                List<TEntity> a = new List<TEntity>();
+
+                List<TEntity> res = DataNamesMapper<TEntity>.GetTableSchema(customersTable, "Customer");
             }
-
-            foreach (var customer in customers) {
-                Console.WriteLine("ID:" + customer.ID
-                    + ", fullname: " + customer.Fullname
-                    + ", telephone: " + customer.tel);
+            catch (Exception err) {
+                Console.WriteLine("An error occured: " + err);
             }
         }
+
+        public void GetTableSchema<TEntity>(DataSet data, string DBName) {
+            *//*string queryStr = "SELECT * FROM [MyCompany].[dbo].[Customer]";
+            OleDbDataAdapter adapter = new OleDbDataAdapter(queryStr, con);
+
+            DataSet customersTable = new DataSet();
+            adapter.Fill(customersTable, "Customer");
+
+            string DBName = "Customer";*/
+
+        /*IEnumerable<TEntity> customers = null;
+
+        DataNamesMapper<TEntity> mapper = new DataNamesMapper<TEntity>();
+        foreach (DataTable table in data.Tables) {
+            if (table.TableName == DBName) {
+                customers = (List<TEntity>)mapper.Map(table);
+            }
+        }
+
+        return customers;*/
+
+        /*foreach (var customer in customers) {
+            Console.WriteLine("ID:" + customer.ID
+                + ", fullname: " + customer.Fullname
+                + ", telephone: " + customer.tel);
+        }*//*
+    }*/
     }
 }

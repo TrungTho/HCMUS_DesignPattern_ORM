@@ -4,7 +4,7 @@ using System.Data;
 using System.Reflection;
 
 namespace CorgiORM.Model {
-    public class DataNamesMapper<TEntity> where TEntity : class, new() {
+    public class DataNamesMapper<TEntity> where TEntity : new() {
         /*public TEntity Map(DataRow row) {
             var columnNames = row.Table.Columns.Cast<DataColumn>()
                 .Select(x => x.ColumnName).ToList();
@@ -18,6 +18,18 @@ namespace CorgiORM.Model {
             }
             return entity;
         }*/
+
+        public List<TEntity> GetTableSchema(DataSet data, string DBName) {
+            List<TEntity> objectList = new List<TEntity>();
+
+            foreach (DataTable table in data.Tables) {
+                if (table.TableName == DBName) {
+                    objectList = (List<TEntity>)Map(table);
+                }
+            }
+
+            return objectList;
+        }
 
         public IEnumerable<TEntity> Map(DataTable table) {
 
