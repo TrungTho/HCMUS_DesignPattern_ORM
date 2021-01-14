@@ -6,7 +6,7 @@ namespace CorgiORM.Model {
             //get DataNames attributes from ${propertyName} field in model
             var attributes = type.GetProperty(propertyName).GetCustomAttributes(false);
             DataNamesAttribute property = null;
-            foreach (Object prop in attributes) {
+            foreach (object prop in attributes) {
                 if (prop.GetType().Name == "DataNamesAttribute") {
                     property = (DataNamesAttribute)prop;
                     break;

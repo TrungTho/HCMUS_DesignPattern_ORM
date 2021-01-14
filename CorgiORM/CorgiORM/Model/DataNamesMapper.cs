@@ -5,30 +5,33 @@ using System.Reflection;
 
 namespace CorgiORM.Model {
     public class DataNamesMapper<TEntity> where TEntity : new() {
-        /*public TEntity Map(DataRow row) {
-            var columnNames = row.Table.Columns.Cast<DataColumn>()
-                .Select(x => x.ColumnName).ToList();
+        public TEntity Map(DataRow row) {
+            /*List<string> columnNames = new List<string>;
+            var Allcolumns = row.Table.Columns;
+            foreach (DataColumn col in Allcolumns) {
+                columnNames.Add(col.ColumnName);
+            }*/
+            /*.Cast<DataColumn>().Select(x => x.ColumnName).ToList();*/
 
-            var properties = (typeof(TEntity)).GetProperties().Where(x =>
-            x.GetCustomAttributes(typeof(DataNamesAttribute), true).Any()).ToList();
+            PropertyInfo[] Allproperties = (typeof(TEntity)).GetProperties();
+            List<PropertyInfo> properties = new List<PropertyInfo>();
+            foreach (PropertyInfo prop in Allproperties) {
+                object[] customAttr = prop.GetCustomAttributes(typeof(DataNamesAttribute), true);
+                if (customAttr.Length > 0) {
+                    properties.Add(prop);
+                }
+
+            }
+
+            /*.Where(x =>
+            x.GetCustomAttributes(typeof(DataNamesAttribute), true).Any()).ToList();*/
+
 
             TEntity entity = new TEntity();
             foreach (var prop in properties) {
                 PropertyMapHelper.Map(typeof(TEntity), row, prop, entity);
             }
             return entity;
-        }*/
-
-        public List<TEntity> GetTableSchema(DataSet data, string DBName) {
-            List<TEntity> objectList = new List<TEntity>();
-
-            foreach (DataTable table in data.Tables) {
-                if (table.TableName == DBName) {
-                    objectList = (List<TEntity>)Map(table);
-                }
-            }
-
-            return objectList;
         }
 
         public IEnumerable<TEntity> Map(DataTable table) {
