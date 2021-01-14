@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +16,19 @@ namespace CorgiORM
             private OrCondition havingCondition = new OrCondition();
             private Dictionary<string, string> attributeList;
             
-        public SQLSelectBuilder(string table,Dictionary<string,string> attributes)
+            public Dictionary<string,string> getAttributeList<T>()
             {
-                this.tableName = table;
+                Dictionary<string, string> attributeList = new Dictionary<string, string>();
+                PropertyInfo[] propertyInfo = typeof(T).GetProperties();
+                foreach (PropertyInfo pInfo in propertyInfo)
+                {
+                    attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName);
+                }
+                return attributeList;
+            }
+            public SQLSelectBuilder(string name,Dictionary<string,string> attributes)
+            {
+                this.tableName = name;
                 this.attributeList = attributes;
             }
             public string getValidStr(string obj)
@@ -29,6 +40,7 @@ namespace CorgiORM
                 string groupByFormat = "";
                 string havingFormat = "";
                 string whereFormat = "";
+                string orderByFormat = "";
                 if(condition.parseDataToString(attributeList, tableName)!="")
                 {
                     whereFormat = "WHERE " + condition.parseDataToString(attributeList, tableName);
@@ -50,11 +62,15 @@ namespace CorgiORM
                     }
                 }
                 
+                if(orderByCondition != null)
+                {
+                    orderByFormat = getValidStr(orderByCondition);
+                }
                 return $"select * from {tableName}" +
                 $" {whereFormat} " +
                 $" {groupByFormat} " +
                 $"{havingFormat} " +
-                $"{orderByCondition}";
+                $"{orderByFormat}";
             }
 
             public string getValue(Object obj)

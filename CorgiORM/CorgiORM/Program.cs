@@ -15,6 +15,7 @@ namespace CorgiORM
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
             // CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
+
             Dictionary<string, string> attributeList = new Dictionary<string, string>();
             PropertyInfo[] propertyInfo = typeof(Customer).GetProperties();
             foreach (PropertyInfo pInfo in propertyInfo)
@@ -22,12 +23,15 @@ namespace CorgiORM
                 attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName);
             }
             
+
             ISelectQueryBuilder x = new SQLSelectBuilder("customer",attributeList);
             Console.WriteLine(x
                 .Where(Condition.And(Condition.Equal("Id", 1), Condition.GreaterThan("ten", "2")))
                 .Where(new Not(Condition.Equal("Id", 1)))
                 .GroupBy("Id")
                 .Having(Condition.Equal("Id",1))
+                .OrderBy("Id","ASC")
+                .OrderBy("ten", "ASC")
                 .getQueryString());
             //Console.WriteLine(Condition.Equal("id", 1).parseDataToString());
             //CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);
