@@ -42,11 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CorgiORM.cs" />
-    <Compile Include="ISelectQueryBuilder.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Model\AttributeHelper.cs" />
+    <Compile Include="Model\DataNamesAttribute.cs" />
+    <Compile Include="Model\DataNamesMapper.cs" />
+    <Compile Include="Model\Mapper.cs" />
+    <Compile Include="Model\PropertyMapHelper.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SQLExecute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
