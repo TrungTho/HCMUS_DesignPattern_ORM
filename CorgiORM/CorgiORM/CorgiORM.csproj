@@ -70,8 +70,6 @@
     <Compile Include="SelectQueryBuilder\ISelectQueryBuilder.cs" />
     <Compile Include="SelectQueryBuilder\SQLSelectBuilder.cs" />
     <Compile Include="SQLExecute.cs" />
-    <Compile Include="TableData\Column.cs" />
-    <Compile Include="TableData\TableName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
