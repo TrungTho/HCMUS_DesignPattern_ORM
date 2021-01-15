@@ -2,6 +2,7 @@
 using System;
 
 namespace CorgiORM {
+    [TableName("Products")]
     class Product {
         [DataNames("id")]
         public string id { get; set; }

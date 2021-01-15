@@ -1,16 +1,25 @@
 ﻿using CorgiORM.Model;
+using System;
 
 namespace CorgiORM {
+    [TableName("Customers")]
     public class Customer {
-        [DataNames("ID")]
-        public string ID { get; set; }
+        [DataNames("id")]
+        public int id { get; set; }
 
-        [DataNames("Fullname")]
-        public string Fullname { get; set; }
+        [DataNames("name")]
+        public string name { get; set; }
 
-        [DataNames("tele_tel")]
+        [DataNames("email")]
+        public string email { get; set; }
+
+        [DataNames("tel")]
         public string tel { get; set; }
 
-        public string test { get; set; }
+        [DataNames("male")]
+        public bool male { get; set; }
+
+        [DataNames("dob")]
+        public DateTime dob { get; set; }
     }
 }

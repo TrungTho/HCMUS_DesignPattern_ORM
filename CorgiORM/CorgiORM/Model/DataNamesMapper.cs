@@ -9,19 +9,20 @@ namespace CorgiORM.Model {
             //Get list of properties of TEntity
             PropertyInfo[] Allproperties = (typeof(TEntity)).GetProperties();
 
-            //Get field with datanames attribute only
+            //result list
             List<PropertyInfo> properties = new List<PropertyInfo>();
+            //Get field with datanames attribute only and push to result list
             foreach (PropertyInfo prop in Allproperties) {
                 object[] customAttr = prop.GetCustomAttributes(typeof(DataNamesAttribute), true);
                 if (customAttr.Length > 0) {
                     properties.Add(prop);
                 }
             }
-
+            //return result list
             return properties;
         }
 
-        //map datarơ ==> an entity object
+        //map datarow ==> an entity object
         public TEntity Map(DataRow row) {
             //Get field with datanames attribute only
             List<PropertyInfo> properties = GetDataNamesAttributeFields();
