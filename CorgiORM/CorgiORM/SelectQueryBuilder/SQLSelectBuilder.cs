@@ -16,7 +16,7 @@ namespace CorgiORM
             private OrCondition havingCondition = new OrCondition();
             private Dictionary<string, string> attributeList;
             
-            public Dictionary<string,string> getAttributeList()
+            private Dictionary<string,string> getAttributeList()
             {
                 Dictionary<string, string> attributeList = new Dictionary<string, string>();
                 PropertyInfo[] propertyInfo = typeof(T).GetProperties();
@@ -28,7 +28,7 @@ namespace CorgiORM
             }
             public SQLSelectBuilder()
             {
-                this.tableName = "customer";
+                this.tableName = AttributeHelper.GetTableName<T>(); ;
                 this.attributeList = getAttributeList();
             }
             public string getValidStr(string obj)
