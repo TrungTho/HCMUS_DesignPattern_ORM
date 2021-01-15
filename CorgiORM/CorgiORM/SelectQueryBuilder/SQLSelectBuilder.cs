@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CorgiORM
 {
-        class SQLSelectBuilder : ISelectQueryBuilder
+        class SQLSelectBuilder<T> : ISelectQueryBuilder
         {
             private string groupByCondition;
             private string orderByCondition;
@@ -16,7 +16,7 @@ namespace CorgiORM
             private OrCondition havingCondition = new OrCondition();
             private Dictionary<string, string> attributeList;
             
-            public Dictionary<string,string> getAttributeList<T>()
+            public Dictionary<string,string> getAttributeList()
             {
                 Dictionary<string, string> attributeList = new Dictionary<string, string>();
                 PropertyInfo[] propertyInfo = typeof(T).GetProperties();
@@ -26,10 +26,10 @@ namespace CorgiORM
                 }
                 return attributeList;
             }
-            public SQLSelectBuilder(string name,Dictionary<string,string> attributes)
+            public SQLSelectBuilder()
             {
-                this.tableName = name;
-                this.attributeList = attributes;
+                this.tableName = "customer";
+                this.attributeList = getAttributeList();
             }
             public string getValidStr(string obj)
             {

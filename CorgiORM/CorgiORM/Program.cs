@@ -24,9 +24,9 @@ namespace CorgiORM
             }
             
 
-            ISelectQueryBuilder x = new SQLSelectBuilder("customer",attributeList);
+            ISelectQueryBuilder x = new SQLSelectBuilder<Customer>();
             Console.WriteLine(x
-                .Where(Condition.And(Condition.Equal("Id", 1), Condition.GreaterThan("ten", "2")))
+                .Where(Condition.And(Condition.Equal("Id", 1), new Not(Condition.Equal("Id", 1))))
                 .Where(new Not(Condition.Equal("Id", 1)))
                 .GroupBy("Id")
                 .Having(Condition.Equal("Id",1))
