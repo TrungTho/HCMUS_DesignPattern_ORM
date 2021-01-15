@@ -20,19 +20,19 @@ namespace CorgiORM {
             con.Open();
             Console.WriteLine("Connected");
 
-            string queryStr = "SELECT * FROM [MyCompany].[dbo].[Products]";
+            string queryStr = "SELECT * FROM [MyCompany].[dbo].[Customers]";
             OleDbDataAdapter adapter = new OleDbDataAdapter(queryStr, con);
 
             DataSet tables = new DataSet();
-            adapter.Fill(tables, "Products");
+            adapter.Fill(tables, "Customers");
 
-            List<Product> rows = new List<Product>();
-            Product item = new Product();
+            List<Customer> rows = new List<Customer>();
+            Customer item = new Customer();
 
-            rows = Mapper.MapDataWithList<Product>(tables);
-            item = Mapper.MapDataWithObject<Product>(tables.Tables[0].Rows[0]);
+            rows = Mapper.MapDataWithList<Customer>(tables);
+            item = Mapper.MapDataWithObject<Customer>(tables.Tables[0].Rows[0]);
 
-            foreach (var row in rows) {
+            /*foreach (var row in rows) {
                 Console.WriteLine("ID:" + row.id
                 + ", fullname: " + row.name
                 + ", count: " + row.count
@@ -50,9 +50,9 @@ namespace CorgiORM {
                + ", price: " + item.price
                + ", imported at: " + item.importAt
                + ", exported at: " + item.exportAt
-               + ", checked: " + item.isChecked);
+               + ", checked: " + item.isChecked);*/
 
-            /*foreach (var row in rows) {
+            foreach (var row in rows) {
                 Console.WriteLine("ID:" + row.id
                 + ", fullname: " + row.name
                 + ", count: " + row.email
@@ -66,7 +66,7 @@ namespace CorgiORM {
                  + ", count: " + item.email
                  + ", rate: " + item.tel
                  + ", price: " + item.male
-                 + ", imported at: " + item.dob);*/
+                 + ", imported at: " + item.dob);
 
             Console.ReadKey();
 
