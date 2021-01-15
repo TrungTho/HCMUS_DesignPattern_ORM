@@ -20,10 +20,9 @@ namespace CorgiORM {
         public bool male { get; set; }
 
         [DataNames("dob")]
-        public DateTime dob { get; set; }
+        public DateTime? dob { get; set; }
 
-        public Customer(int id, string name, string email)
-        {
+        public Customer(int id, string name, string email) {
             this.id = id;
             this.name = name;
             this.email = email;

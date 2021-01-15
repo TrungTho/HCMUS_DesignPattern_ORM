@@ -30,7 +30,7 @@ namespace CorgiORM.Model {
                 //set fit-value type for ${prop} property in entity
                 prop.SetValue(entity, value.ToString().Trim(), null);
             }
-            else if (prop.PropertyType == typeof(bool)) {
+            else if (prop.PropertyType == typeof(bool) || prop.PropertyType == typeof(bool?)) {
                 if (value == null) {
                     prop.SetValue(entity, null, null);
                 }
@@ -41,7 +41,7 @@ namespace CorgiORM.Model {
             else if (prop.PropertyType == typeof(long)) {
                 prop.SetValue(entity, long.Parse(value.ToString()), null);
             }
-            else if (prop.PropertyType == typeof(int)) {
+            else if (prop.PropertyType == typeof(int) || prop.PropertyType == typeof(int?)) {
                 if (value == null) {
                     prop.SetValue(entity, null, null);
                 }
@@ -52,14 +52,14 @@ namespace CorgiORM.Model {
             else if (prop.PropertyType == typeof(decimal)) {
                 prop.SetValue(entity, decimal.Parse(value.ToString()), null);
             }
-            else if (prop.PropertyType == typeof(double)) {
+            else if (prop.PropertyType == typeof(double) || prop.PropertyType == typeof(double?)) {
                 double number;
                 bool isValid = double.TryParse(value.ToString(), out number);
                 if (isValid) {
                     prop.SetValue(entity, double.Parse(value.ToString()), null);
                 }
             }
-            else if (prop.PropertyType == typeof(DateTime)) {
+            else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(Nullable<DateTime>)) {
                 DateTime date;
                 bool isValid = DateTime.TryParse(value.ToString(), out date);
                 if (isValid) {
