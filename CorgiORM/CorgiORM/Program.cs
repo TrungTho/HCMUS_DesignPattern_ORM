@@ -26,17 +26,12 @@ namespace CorgiORM {
             DataSet tables = new DataSet();
             adapter.Fill(tables, "Products");
 
-            string DBName = "Products";
-
             List<Product> rows = new List<Product>();
             Product item = new Product();
 
-            rows = Mapper.MapDataWithList<Product>(tables, DBName);
-
-            double num = 3.2;
-            Console.WriteLine("float {0}", num);
-
+            rows = Mapper.MapDataWithList<Product>(tables);
             item = Mapper.MapDataWithObject<Product>(tables.Tables[0].Rows[0]);
+
             foreach (var row in rows) {
                 Console.WriteLine("ID:" + row.id
                 + ", fullname: " + row.name
@@ -56,6 +51,22 @@ namespace CorgiORM {
                + ", imported at: " + item.importAt
                + ", exported at: " + item.exportAt
                + ", checked: " + item.isChecked);
+
+            /*foreach (var row in rows) {
+                Console.WriteLine("ID:" + row.id
+                + ", fullname: " + row.name
+                + ", count: " + row.email
+                + ", rate: " + row.tel
+                + ", price: " + row.male
+                + ", imported at: " + row.dob);
+            }
+
+            Console.WriteLine("ID:" + item.id
+                 + ", fullname: " + item.name
+                 + ", count: " + item.email
+                 + ", rate: " + item.tel
+                 + ", price: " + item.male
+                 + ", imported at: " + item.dob);*/
 
             Console.ReadKey();
 

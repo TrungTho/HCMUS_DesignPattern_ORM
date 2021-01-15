@@ -48,6 +48,7 @@
     <Compile Include="Model\DataNamesMapper.cs" />
     <Compile Include="Model\Mapper.cs" />
     <Compile Include="Model\PropertyMapHelper.cs" />
+    <Compile Include="Model\TableNameAttribute.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

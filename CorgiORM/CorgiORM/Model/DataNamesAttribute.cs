@@ -9,7 +9,6 @@ namespace CorgiORM.Model {
             get {
                 return _valueNames;
             }
-
             set {
                 _valueNames = value;
             }
