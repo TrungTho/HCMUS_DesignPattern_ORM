@@ -18,7 +18,6 @@ namespace CorgiORM {
              string password = "";
              connectionString = "SERVER=" + server + ";" + "DATABASE=" +
              database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
-
              con = new OleDbConnection(connectionString);*/
             /*connectionString = "Server=localhost\\SqlExpress;" +
                             "Database=MyCompany;" +
@@ -61,7 +60,6 @@ namespace CorgiORM {
                 + ", exported at: " + row.exportAt
                 + ", checked: " + row.isChecked);
             }
-
             Console.WriteLine("ID:" + item.id
                + ", fullname: " + item.name
                + ", count: " + item.count
@@ -70,7 +68,6 @@ namespace CorgiORM {
                + ", imported at: " + item.importAt
                + ", exported at: " + item.exportAt
                + ", checked: " + item.isChecked);
-
             foreach (var row in rows) {
                 Console.WriteLine("ID:" + row.id
                 + ", fullname: " + row.name
@@ -79,7 +76,6 @@ namespace CorgiORM {
                 + ", price: " + row.male
                 + ", imported at: " + row.dob);
             }
-
             Console.WriteLine("ID:" + item.id
                  + ", fullname: " + item.name
                  + ", count: " + item.email
