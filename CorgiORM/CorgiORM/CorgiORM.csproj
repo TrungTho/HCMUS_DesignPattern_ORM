@@ -58,7 +58,6 @@
     <Compile Include="CorgiORM.cs" />
     <Compile Include="OrderType.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="ISelectQueryBuilder.cs" />
     <Compile Include="Model\AttributeHelper.cs" />
     <Compile Include="Model\DataNamesAttribute.cs" />
     <Compile Include="Model\DataNamesMapper.cs" />

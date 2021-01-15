@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CorgiORM.Model {
+namespace CorgiORM {
     //attribute for class property only
     [AttributeUsage(AttributeTargets.Property)]
     public class DataNamesAttribute : Attribute {
