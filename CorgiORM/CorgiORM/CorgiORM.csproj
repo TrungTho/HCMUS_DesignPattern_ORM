@@ -57,6 +57,15 @@
     <Compile Include="Condition\LogicalOperator\OrCondition.cs" />
     <Compile Include="CorgiORM.cs" />
     <Compile Include="OrderType.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="ISelectQueryBuilder.cs" />
+    <Compile Include="Model\AttributeHelper.cs" />
+    <Compile Include="Model\DataNamesAttribute.cs" />
+    <Compile Include="Model\DataNamesMapper.cs" />
+    <Compile Include="Model\Mapper.cs" />
+    <Compile Include="Model\PropertyMapHelper.cs" />
+    <Compile Include="Model\TableNameAttribute.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectQueryBuilder\ISelectQueryBuilder.cs" />
