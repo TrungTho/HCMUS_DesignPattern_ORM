@@ -18,17 +18,28 @@ namespace CorgiORM
             
             private Dictionary<string,string> getAttributeList()
             {
-                Dictionary<string, string> attributeList = new Dictionary<string, string>();
+            
+            Dictionary<string, string> attributeList = new Dictionary<string, string>();
+
                 PropertyInfo[] propertyInfo = typeof(T).GetProperties();
+
                 foreach (PropertyInfo pInfo in propertyInfo)
                 {
-                    attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName);
+                    object[] customAttr = pInfo.GetCustomAttributes(typeof(DataNamesAttribute), true);
+                
+                    if (customAttr.Length > 0)
+                    {
+                        //Console.WriteLine(pInfo.GetCustomAttribute<DataNamesAttribute>().ValueNames);
+                       attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<DataNamesAttribute>().ValueNames);
+                    }
+                //attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName);
                 }
                 return attributeList;
             }
+            
             public SQLSelectBuilder()
             {
-                this.tableName = AttributeHelper.GetTableName<T>(); ;
+                this.tableName = "Customers" ;
                 this.attributeList = getAttributeList();
             }
             public string getValidStr(string obj)

@@ -7,32 +7,32 @@ namespace CorgiORM {
 
         static void Main(string[] args) {
             //var newobj = new Customer(2,"Trà Mỹ Phương", "hehe");
-            var newobj = new Customer("Nguyễn Văn Hải", "11111111");
+            var newobj = new Customer(1,"Nguyễn Văn Hải", "11111111");
             // var newobj = new Customer(23, "Nguyễn Hữu Vinh", "vinh@gmail.com");
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
-            CorgiORM.DB.CorgiAdd.executeNonQuery("Customers", newobj);
+            //CorgiORM.DB.CorgiAdd.executeNonQuery("Customers", newobj);
 
             //CorgiORM.DB.CorgiRemove.executeNonQuery("Customer", newobj);
 
             // CorgiORM.DB.CorgiUpdate.executeNonQuery("customer", newobj);
 
-            Dictionary<string, string> attributeList = new Dictionary<string, string>();
-            PropertyInfo[] propertyInfo = typeof(Customer).GetProperties();
-            foreach (PropertyInfo pInfo in propertyInfo)
-            {
-                attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName);
-            }
-            
+            //Dictionary<string, string> attributeList = new Dictionary<string, string>();
+            //PropertyInfo[] propertyInfo = typeof(Customer).GetProperties();
+            //foreach (PropertyInfo pInfo in propertyInfo)
+            //{
+            //    attributeList.Add(pInfo.Name, pInfo.GetCustomAttribute<Column>().columnName);
+            //}
+
 
             ISelectQueryBuilder x = new SQLSelectBuilder<Customer>();
             Console.WriteLine(x
-                .Where(Condition.And(Condition.Equal("Id", 1), new Not(Condition.Equal("Id", 1))))
-                .Where(new Not(Condition.Equal("Id", 1)))
-                .GroupBy("Id")
-                .Having(Condition.Equal("Id",1))
-                .OrderBy("Id","ASC")
-                .OrderBy("ten", "ASC")
+                .Where(Condition.And(Condition.Equal("id", 1), new Not(Condition.Equal("id", 1))))
+                .Where(new Not(Condition.Equal("id", 1)))
+                .GroupBy("id")
+                .Having(Condition.Equal("id", 1))
+                .OrderBy("id", "ASC")
+                .OrderBy("name", "ASC")
                 .getQueryString());
             //Console.WriteLine(Condition.Equal("id", 1).parseDataToString());
             //CorgiORM.DB.CorgiAdd.executeNonQuery("customer", newobj);

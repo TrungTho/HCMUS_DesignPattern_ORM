@@ -5,11 +5,9 @@ D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
-<<<<<<< HEAD
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe.config
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\CorgiORM.pdb
-E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csprojAssemblyReference.cache
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
@@ -29,12 +27,3 @@ E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Runtime.Compile
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\MySql.Data.xml
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe.config
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CopyComplete
-=======
-D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe.config
-D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\CorgiORM.exe
-D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\CorgiORM.pdb
-D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csprojAssemblyReference.cache
-D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CoreCompileInputs.cache
-D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe
-D:\Documents\OOP-design_pattern\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.pdb
->>>>>>> 86630310274327a9995b864c8e873c67e750a0fe
