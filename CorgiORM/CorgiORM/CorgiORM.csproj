@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,7 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Condition\Compare.cs" />
+    <Compile Include="Condition\CompareOperator\EqualCondition.cs" />
+    <Compile Include="Condition\CompareOperator\GreaterThanCondition.cs" />
+    <Compile Include="Condition\CompareOperator\GreaterThanOrEqualCondition.cs" />
+    <Compile Include="Condition\CompareOperator\LessThanCondition.cs" />
+    <Compile Include="Condition\CompareOperator\LessThanOrEqualCondition.cs" />
+    <Compile Include="Condition\CompareOperator\LikeCondition.cs" />
+    <Compile Include="Condition\CompareOperator\NotCondition.cs" />
+    <Compile Include="Condition\Condition.cs" />
+    <Compile Include="Condition\Connector.cs" />
+    <Compile Include="Condition\LogicalOperator\AndCondition.cs" />
+    <Compile Include="Condition\LogicalOperator\OrCondition.cs" />
     <Compile Include="CorgiORM.cs" />
+    <Compile Include="OrderType.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="ISelectQueryBuilder.cs" />
     <Compile Include="Model\AttributeHelper.cs" />
@@ -54,7 +68,12 @@
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectQueryBuilder\ISelectQueryBuilder.cs" />
+    <Compile Include="SelectQueryBuilder\SQLSelectBuilder.cs" />
     <Compile Include="SQLExecute.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="TableData\Column.cs" />
+    <Compile Include="TableData\TableName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
