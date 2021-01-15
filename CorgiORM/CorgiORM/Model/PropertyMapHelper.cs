@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace CorgiORM.Model {
     public static class PropertyMapHelper {
+        //help retrieve column name from attach attribute
         public static void Map(Type type, DataRow row, PropertyInfo prop, object entity) {
             string columnName = AttributeHelper.GetDataNames(type, prop.Name);
 
@@ -22,6 +23,7 @@ namespace CorgiORM.Model {
             }
         }
 
+        //help retrieve table name from attach attribute
         private static void ParsePrimitive(PropertyInfo prop, object entity, object value) {
             //check if property type = string and set string-type value
             if (prop.PropertyType == typeof(string)) {
