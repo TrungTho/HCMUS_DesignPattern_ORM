@@ -27,3 +27,18 @@ E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\System.Runtime.Compile
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\bin\Debug\MySql.Data.xml
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe.config
 E:\Nam4_HK1\OOP\Project-Final\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CopyComplete
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.exe.config
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\Google.Protobuf.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\Zstandard.Net.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\K4os.Compression.LZ4.Streams.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\BouncyCastle.Crypto.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\Ubiety.Dns.Core.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\Renci.SshNet.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\System.Memory.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\System.Buffers.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\K4os.Compression.LZ4.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\K4os.Hash.xxHash.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\System.Numerics.Vectors.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\MySql.Data.xml
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CopyComplete

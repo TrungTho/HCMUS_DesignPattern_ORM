@@ -4,13 +4,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Reflection;
+using CorgiORM.Model;
 
 namespace CorgiORM
 {
     public interface IExecute
     {
-        void executeNonQuery<T>(string tableName, T Object);
-        List<T> execute<T>(ISelectQueryBuilder Query);
+        void executeNonQuery<T>(T Object) where T : class, new();
+        List<T> execute<T>(ISelectQueryBuilder Query) where T : class, new(); 
         Object executeGetFirst(ISelectQueryBuilder Query);
     }
 
@@ -69,8 +70,13 @@ namespace CorgiORM
                 //extract values from object to row one by one
                 foreach (PropertyInfo attri in Object.GetType().GetProperties())
                 {
+                    
                     var value = attri.GetValue(Object, null);
-                    row[pos] = value;
+                    if (value == null)
+                        row[pos] = DBNull.Value;
+                    else
+                        row[pos] = value;
+                    
                     pos++;
                 }
 
@@ -89,9 +95,9 @@ namespace CorgiORM
         /// <typeparam name="T"> class variable</typeparam>
         /// <param name="tableName"> table name that apply query</param>
         /// <param name="Object"> object that need to insert/delete/update to database</param>
-        public virtual void executeNonQuery<T>(string tableName, T Object)
+        public virtual void executeNonQuery<T>(T Object) where T : class, new()
         {
-            this.tableName = tableName;
+            this.tableName = AttributeHelper.GetTableName<T>();
             this.queryString = $"select * from {tableName}";
             try
             {
@@ -120,15 +126,16 @@ namespace CorgiORM
         /// <typeparam name="T"></typeparam>
         /// <param name="Query"></param>
         /// <returns></returns>
-        public virtual List<T> execute<T>(ISelectQueryBuilder Query)
+        public virtual List<T> execute<T>(ISelectQueryBuilder Query) where T : class, new()
         {
             try
             {
+                this.tableName= AttributeHelper.GetTableName<T>();
                 this.queryString = Query.getQueryString();
                 connectAndLoadData();
 
-                //mapping dataset => list... and return list
-                List<T> res = new List<T>();
+                //mapping dataset => list... and return list 
+                List<T> res = Mapper.MapDataWithList<T>(this.dataSet); 
 
 
                 return res;
@@ -295,7 +302,7 @@ namespace CorgiORM
             return 1;
         }
 
-        public override void executeNonQuery<T>(string tableName, T Object)
+        public override void executeNonQuery<T>(T Object)
         {
             return;
         }

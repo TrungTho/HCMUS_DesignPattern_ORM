@@ -4,10 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CorgiORM.Model;
 
 namespace CorgiORM
 {
-        class SQLSelectBuilder<T> : ISelectQueryBuilder
+        class SQLSelectBuilder<T> : ISelectQueryBuilder where T : class, new()
         {
             private string groupByCondition;
             private string orderByCondition;
@@ -39,8 +40,8 @@ namespace CorgiORM
             
             public SQLSelectBuilder()
             {
-                this.tableName = "Customers" ;
-                this.attributeList = getAttributeList();
+                this.tableName = AttributeHelper.GetTableName<T>();
+            this.attributeList = getAttributeList();
             }
             public string getValidStr(string obj)
             {
