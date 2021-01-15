@@ -10,6 +10,7 @@ namespace CorgiORM
 {
         class SQLSelectBuilder<T> : ISelectQueryBuilder where T : class, new()
         {
+            private List<string> selectCondition;
             private string groupByCondition;
             private string orderByCondition;
             private string tableName;
@@ -41,11 +42,30 @@ namespace CorgiORM
             public SQLSelectBuilder()
             {
                 this.tableName = AttributeHelper.GetTableName<T>();
-            this.attributeList = getAttributeList();
+                this.attributeList = getAttributeList();
+                this.selectCondition = new List<string>();
             }
             public string getValidStr(string obj)
             {
-                return obj.Substring(0, obj.Length - 1) + ")";
+                return obj.Substring(0, obj.Length - 1);
+            }
+            
+            private string getListColumnSelected()
+            {
+                string res = ""; 
+                if(this.selectCondition.Count == 0)
+                {
+                    res += "*";
+                }
+                else
+                {
+                    foreach(string conditionEle in selectCondition)
+                    {
+                    res += conditionEle + ",";
+                    }
+                    res = getValidStr(res);
+                }
+                return res;
             }
             public string getQueryString()
             {
@@ -78,11 +98,11 @@ namespace CorgiORM
                 {
                     orderByFormat = getValidStr(orderByCondition);
                 }
-                return $"select * from {tableName}" +
-                $" {whereFormat} " +
-                $" {groupByFormat} " +
-                $"{havingFormat} " +
-                $"{orderByFormat}";
+                return $"select {getListColumnSelected()} from {tableName}" +
+                $" {whereFormat}" +
+                $" {groupByFormat}" +
+                $" {havingFormat} " +
+                $" {orderByFormat}";
             }
 
             public string getValue(Object obj)
@@ -100,7 +120,7 @@ namespace CorgiORM
             {
                 if (this.groupByCondition == null)
                 {
-                    this.groupByCondition = "GROUP BY (" + fieldName + " ";
+                    this.groupByCondition = "GROUP BY " + fieldName + " ";
                 }
                 else
                 {
@@ -125,7 +145,7 @@ namespace CorgiORM
             {
                 if (this.orderByCondition == null)
                 {
-                    this.orderByCondition = " ORDER BY ( " + fieldName + " " + type + " ";
+                    this.orderByCondition = " ORDER BY " + fieldName + " " + type + " ";
                 }
                 else
                 {
@@ -133,5 +153,11 @@ namespace CorgiORM
                 }
                 return this;
             }
+
+        public ISelectQueryBuilder SelectCondition(string column)
+        {
+            this.selectCondition.Add(column);
+            return this;
         }
+    }
 }

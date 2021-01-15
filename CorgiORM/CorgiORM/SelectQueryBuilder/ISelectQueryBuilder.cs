@@ -9,6 +9,7 @@ namespace CorgiORM
     public interface ISelectQueryBuilder
     {
         string getQueryString();
+        ISelectQueryBuilder SelectCondition(string column);
         ISelectQueryBuilder Where(Condition condition);
         ISelectQueryBuilder GroupBy(string fieldName);
         ISelectQueryBuilder Having(Condition condition);

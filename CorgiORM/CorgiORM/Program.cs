@@ -14,7 +14,17 @@ namespace CorgiORM {
 
             ISelectQueryBuilder x = new SQLSelectBuilder<Customer>();
             
-            List<Customer> customers=CorgiORM.DB.CorgiGet.execute<Customer>(x.Where(Condition.GreaterThan("id",10)).OrderBy("name","ASC"));
+            List<Customer> customers=CorgiORM.DB.CorgiGet.execute<Customer>(
+                x
+                .SelectCondition("id")
+                 .SelectCondition("name")
+                .Where(Condition.GreaterThan("id",10))
+                .GroupBy("name")
+                 .GroupBy("name")
+                .Having(Condition.GreaterThan("id", 10))
+                .OrderBy("name","ASC")
+                  .OrderBy("name", "ASC")
+                );
             Console.WriteLine(x.getQueryString());
 
             Customer customer= CorgiORM.DB.CorgiGet.executeGetFirst<Customer>(x.Where(Condition.GreaterThan("id", 10)));
