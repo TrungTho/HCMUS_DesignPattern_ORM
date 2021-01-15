@@ -44,7 +44,7 @@ namespace CorgiORM
 
         public override string ToString()
         {
-            return id.ToString() + "--" + name.ToString() + email ;
+            return id.ToString() + "--" + name.ToString() + "--" +email +tel +"--" + male.ToString() + "--"+ dob.ToString();
         }
     }
 }

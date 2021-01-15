@@ -100,7 +100,7 @@ namespace CorgiORM
             {
                 if (this.groupByCondition == null)
                 {
-                    this.groupByCondition = "GROUP BY(" + fieldName + " ";
+                    this.groupByCondition = "GROUP BY (" + fieldName + " ";
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace CorgiORM
             {
                 if (this.orderByCondition == null)
                 {
-                    this.orderByCondition = " ORDER BY(" + fieldName + " " + type + " ";
+                    this.orderByCondition = " ORDER BY ( " + fieldName + " " + type + " ";
                 }
                 else
                 {

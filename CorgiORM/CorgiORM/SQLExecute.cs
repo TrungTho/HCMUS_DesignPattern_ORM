@@ -12,7 +12,7 @@ namespace CorgiORM
     {
         void executeNonQuery<T>(T Object) where T : class, new();
         List<T> execute<T>(ISelectQueryBuilder Query) where T : class, new(); 
-        Object executeGetFirst(ISelectQueryBuilder Query);
+        T executeGetFirst<T>(ISelectQueryBuilder Query) where T : class, new();
     }
 
     public class SQLExecute : IExecute
@@ -154,16 +154,17 @@ namespace CorgiORM
         /// </summary>
         /// <param name="Query"></param>
         /// <returns></returns>
-        public virtual Object executeGetFirst(ISelectQueryBuilder Query)
+        public virtual T executeGetFirst<T>(ISelectQueryBuilder Query) where T : class, new()
         {
             this.queryString = Query.getQueryString();
             try
             {
+                this.tableName = AttributeHelper.GetTableName<T>();
                 connectAndLoadData();
 
                 //mapping dataset.table.row[0] => object... and return it
 
-                Object res = new Object();
+                T res = Mapper.MapDataWithList<T>(this.dataSet)[0];
 
 
                 return res;
