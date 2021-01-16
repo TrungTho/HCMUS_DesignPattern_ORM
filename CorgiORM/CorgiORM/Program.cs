@@ -6,36 +6,32 @@ namespace CorgiORM {
     class Program {
 
         static void Main(string[] args) {
-            var newobj = new Customer(21, "Nguyễn Hữu", "vinh@gmail.cnnnom");
+            var datum = new Customer(23, "Nguyễn Hữu Vinh", "vinh@gmail.com","0123456789",true);
 
             CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
 
-            //CorgiORM.DB.CorgiUpdate.executeNonQuery(newobj);
+            //CorgiORM.DB.CorgiAdd.executeNonQuery(datum);
 
+            //CorgiORM.DB.CorgiUpdate.executeNonQuery(datum);
+
+            //CorgiORM.DB.CorgiRemove .executeNonQuery(datum);
+
+            List<Customer> customers = new List<Customer>();
             ISelectQueryBuilder x = new SQLSelectBuilder<Customer>();
+
+            //get all
+            //customers = CorgiORM.DB.CorgiGet.execute<Customer>(x);
             
-            List<Customer> customers=CorgiORM.DB.CorgiGet.execute<Customer>(
-                x
-                .SelectCondition("id")
-                 .SelectCondition("name")
-                .Where(Condition.GreaterThan("id",10))
-                .GroupBy("name")
-                 .GroupBy("name")
-                .Having(Condition.GreaterThan("id", 10))
-                .OrderBy("name","ASC")
-                  .OrderBy("name", "ASC")
-                );
-            Console.WriteLine(x.getQueryString());
 
-            Customer customer= CorgiORM.DB.CorgiGet.executeGetFirst<Customer>(x.Where(Condition.GreaterThan("id", 10)));
+            //customers = CorgiORM.DB.CorgiGet.execute<Customer>(x.Where(Condition.GreaterThan("id",5)));
 
 
-            //duoc ddi huhu cac
-            foreach (var eee in customers)
-                Console.WriteLine(eee);
+            customers = CorgiORM.DB.CorgiGet.execute<Customer>(x.Where(Condition.GreaterThan("id",5)).Where(Condition.LessThan("id",15)));
 
-            Console.WriteLine("-----------------------");
-            Console.WriteLine(customer);
+            //customers = CorgiORM.DB.CorgiGet.execute<Customer>(x.Where(Condition.GreaterThan("id",5)).OrderBy("Name","ASC"));
+
+            foreach (var item in customers) Console.WriteLine(item);
+            
             
             Console.ReadKey();
         }

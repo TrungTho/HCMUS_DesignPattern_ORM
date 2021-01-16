@@ -21,11 +21,6 @@ namespace CorgiORM
         [DataNames("male")]
         public bool male { get; set; }
 
-        [DataNames("dob")]
-        public DateTime? dob { get; set; }
-
-        
-
         public Customer(int id, string name, string email)
         {
             this.id = id;
@@ -42,9 +37,15 @@ namespace CorgiORM
         {
         }
 
+        public Customer(int id, string name, string email, string tel, bool male) : this(id, name, email)
+        {
+            this.tel = tel;
+            this.male = male;
+        }
+
         public override string ToString()
         {
-            return id.ToString() + "--" + name.ToString() + "--" +email +tel +"--" + male.ToString() + "--"+ dob.ToString();
+            return id.ToString() + "--" + name.ToString() + "--" +email +tel +"--" + male.ToString();
         }
     }
 }

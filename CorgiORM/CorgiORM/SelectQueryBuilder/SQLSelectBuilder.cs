@@ -14,7 +14,8 @@ namespace CorgiORM
             private string groupByCondition;
             private string orderByCondition;
             private string tableName;
-            private OrCondition condition = new OrCondition();
+            //private OrCondition condition = new OrCondition();
+            private AndCondition condition = new AndCondition();
             private OrCondition havingCondition = new OrCondition();
             private Dictionary<string, string> attributeList;
             

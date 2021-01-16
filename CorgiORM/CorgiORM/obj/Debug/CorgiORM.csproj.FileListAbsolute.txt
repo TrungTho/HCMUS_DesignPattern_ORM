@@ -42,3 +42,4 @@ D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\MySql.Data.xml
 D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\obj\Debug\CorgiORM.csproj.CopyComplete
+D:\0. HCMUS\OneDrive - VNU-HCMUS\1. HCMUS\4. Senior\Semester1\1. DesignPattern\3. Project\Code\HCMUS_DesignPattern_ORM\CorgiORM\CorgiORM\bin\Debug\MySql.Data.dll
