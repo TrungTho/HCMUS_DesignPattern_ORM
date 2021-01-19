@@ -112,7 +112,8 @@ namespace CorgiORM
             int res = this.dataAdapter.Update(dataSet.Tables[tableName]);
             connectAndLoadData();
 
-            Debug.WriteLine($"CorgiORM: {res} row(s) effected!!! Primary value: {dataSet.Tables[tableName].Rows[indexEffected][0]}");
+            Debug.WriteLine($"CorgiORM: {res} row(s) effected!!! Primary value: " +
+                $"{dataSet.Tables[tableName].Rows[indexEffected][0]}");
             }
             catch (Exception)
             {
