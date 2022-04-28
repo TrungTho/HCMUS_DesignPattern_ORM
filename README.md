@@ -16,29 +16,106 @@ CorgiORM is a course project on the Design Patterns course. This is a Database A
 
 
 ## Table of Contents
+- [Usage](#usage)  
+  - [Object declaration example](#obj-declare)  
+  - [Connect DB & Query example](#query-demo)
+- [Used Patterns](#used)
+  - [Singleton Pattern](#singleton)
+  - [Factory Method Pattern](#factory)
+  - [Template Method Pattern](#template)
+  - [Builder Pattern](#builder)
 
-Usage
+Usage <a name = "usage"></a>
 ---
-Object declaration  
-![image](https://user-images.githubusercontent.com/41388666/165599133-5cd46e94-1ad2-46a6-bc4d-dcb42277a252.png)
+### Object declaration example:  <a name="obj-declare"/>
 
+```
+namespace CorgiORM {
+    [TableName("Products")]
+    class Product {
+        [DataNames("id")]
+        public string id { get; set; }
 
-Used Patterns
+        [DataNames("name")]
+        public string name { get; set; }
+
+        [DataNames("quantity")]
+        public string count { get; set; }
+
+        [DataNames("rating")]
+        public double rate { get; set; }
+
+        [DataNames("price")]
+        public double price { get; set; }
+
+        [DataNames("importAt")]
+        public DateTime importAt { get; set; }
+
+        [DataNames("exportAt")]
+        public DateTime exportAt { get; set; }
+
+        [DataNames("isChecked")]
+        public bool isChecked { get; set; }
+    }
+}
+```
+### Connect DB & Query example <a name = "query-demo"/>
+```
+namespace CorgiORM {
+    class Program {
+
+        static void Main(string[] args) {
+            //Demo ADD / UPDATE / DELETE data
+            //prepare an object adding to db
+            var datum = new Customer(23, "Nguyễn Hữu Vinh", "vinh@gmail.com","0123456789",true);
+            //conenect to db & db type
+            CorgiORM.DB.Config("Server=localhost\\SqlExpress;Database=MyCompany; Trusted_connection=yes", DatabaseType.SQL);
+            //add new row to db
+            //CorgiORM.DB.CorgiAdd.executeNonQuery(datum);
+            //update rwo to db (if exist)
+            //CorgiORM.DB.CorgiUpdate.executeNonQuery(datum);
+            //remove row from db (if exist)
+            //CorgiORM.DB.CorgiRemove .executeNonQuery(datum);
+            
+            //demo QUERY data
+            List<Customer> customers = new List<Customer>(); //list data after query
+            ISelectQueryBuilder x = new SQLSelectBuilder<Customer>(); //query's builder
+            
+            //get all
+            //customers = CorgiORM.DB.CorgiGet.execute<Customer>(x);
+            //get all customer has id > 5
+            //customers = CorgiORM.DB.CorgiGet.execute<Customer>(x.Where(Condition.GreaterThan("id",5)));
+            //get all customer has 5 < id < 15
+            //customers = CorgiORM.DB.CorgiGet.execute<Customer>(x.Where(Condition.GreaterThan("id",5)).Where(Condition.LessThan("id",15)));
+            //get all customer has id > 5 and sort results ascending by name
+            //customers = CorgiORM.DB.CorgiGet.execute<Customer>(x.Where(Condition.GreaterThan("id",5)).OrderBy("Name","ASC"));
+            
+            //foreach (var item in customers) Console.WriteLine(item);
+            Console.ReadKey();
+        }
+    }
+}
+```
+
+Used Patterns <a name = "used"/>
 ---
-### Singleton Pattern  
+<div align = "center">  
+  
+### 1. Singleton Pattern  <a name = "singleton"/>  
 ![](https://i.imgur.com/etBs3gj.gif)  
 ![](https://i.imgur.com/b6HFY2G.gif)  
 
-### Factory Method Pattern  
+### 2. Factory Method Pattern  <a name = "factory"/>  
 ![](https://i.imgur.com/WYVeQ8I.gif)  
 ![](https://i.imgur.com/uq2vBn9.gif)  
 
-### Template Pattern  
+### 3. Template Pattern  <a name = "template"/>  
 ![](https://i.imgur.com/XA1dK0V.gif)  
 ![](https://i.imgur.com/VqGuqPs.gif)  
 ![](https://i.imgur.com/FBQwvPk.gif)  
 
-### Builder Pattern  
+### 4. Builder Pattern  <a name = "builder"/>  
 ![](https://i.imgur.com/snLw7SD.gif)  
 
+  </div>  
 ###### tags: `design-patterns` `corgi-orm`
